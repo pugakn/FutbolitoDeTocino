@@ -5,8 +5,8 @@
 void Ball::Initialize()
 {
 	_position = VECTOR4D(0,0,0,1);
-	_acceleration = VECTOR4D(0, 0, 0, 1);
-	_velocity = VECTOR4D(0, 0, 0, 1);
+	_acceleration = VECTOR4D(0, 0, 0, 0);
+	_velocity = VECTOR4D(0, 0, 0, 0);
 	_color = VECTOR4D(255,255,255,1);
 
 	_mesh.Build(40, 40, buildBall);

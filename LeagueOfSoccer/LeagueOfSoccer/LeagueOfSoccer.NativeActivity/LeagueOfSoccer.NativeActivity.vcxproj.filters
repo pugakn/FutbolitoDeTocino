@@ -3,9 +3,31 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="android_native_app_glue.h" />
+    <ClInclude Include="Wall.h">
+      <Filter>Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="android_native_app_glue.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Wall.cpp">
+      <Filter>Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{08b9670e-1ea0-4bb5-aab8-b46479518a99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Wall">
+      <UniqueIdentifier>{dab0eb58-56f8-4250-a498-c1e8b34c1861}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

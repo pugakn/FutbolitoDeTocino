@@ -205,16 +205,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="MATRIX4D.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="android_native_app_glue.h" />
+    <ClInclude Include="VECTOR4D.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="android_native_app_glue.c" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MATRIX4D.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="VECTOR4D.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

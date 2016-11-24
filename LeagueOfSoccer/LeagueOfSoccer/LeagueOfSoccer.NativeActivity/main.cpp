@@ -117,16 +117,36 @@ static int engine_init_display(struct engine* engine) {
 /**
 * Just the current frame in the display.
 */
+#include <vector>
+#include "Mesh.h"
+#include "Ball.h"
 static void engine_draw_frame(struct engine* engine) {
 	if (engine->display == NULL) {
 		// No display.
 		return;
 	}
 
+
+	/**/
+	Ball ball;
+	ball.Initialize();
+	vector<VECTOR4D> m_Transformed;
+	m_Transformed.resize(ball._mesh.m_Vertices.size());
+	for (int i = 0; i < ball._mesh.m_Vertices.size(); i++) {
+		m_Transformed[i] = ball._mesh.m_Vertices[i];
+	}
+	/**/
 	// Just fill the screen with a color.
 	glClearColor(((float)engine->state.x) / engine->width, engine->state.angle,
 		((float)engine->state.y) / engine->height, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(4, GL_FLOAT, 0, &m_Transformed[0]);
+	//glShadeModel();
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, &ball._mesh.m_Colors[0]);
+	glDrawElements(GL_TRIANGLES, ball._mesh.m_Indices.size(), GL_UNSIGNED_SHORT, &ball._mesh.m_Indices[0]);
 
 	eglSwapBuffers(engine->display, engine->surface);
 }

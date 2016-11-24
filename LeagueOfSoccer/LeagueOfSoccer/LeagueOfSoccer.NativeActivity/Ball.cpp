@@ -1,6 +1,13 @@
 #include "pch.h"
 #include "Ball.h"
+#include <math.h>
 
+void(*buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray)) {
+	//Construir pelota
+	for (int i = 0; i < 1600; i++) {
+		vertexArray[i] = VECTOR4D(.5f*(sinf((3.1416/2))/i)* (cosf((2 * 3.1416) / i)), .5f*(sinf((3.1416 / 2)) / i)* (sinf((2 * 3.1416) / i)), 0.5f*cosf((3.1416 / 2)) / i,0);
+	}
+}
 
 void Ball::Initialize()
 {
@@ -22,10 +29,7 @@ Ball::~Ball()
 {
 }
 
-void(*buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray)) {
-	//Construir pelota
 
-}
 
 
 

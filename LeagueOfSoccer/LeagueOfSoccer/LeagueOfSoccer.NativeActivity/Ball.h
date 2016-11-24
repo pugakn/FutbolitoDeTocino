@@ -4,7 +4,7 @@
 #include <vector>
 class Ball
 {
-private:
+public:
 	Mesh _mesh;
 	VECTOR4D _position;
 	VECTOR4D _color;

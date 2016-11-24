@@ -5,7 +5,7 @@
 using namespace std;
 class Mesh
 {
-private:
+public:
 	friend class Ball;
 	friend class Wall;
 	vector<unsigned short> m_Indices;

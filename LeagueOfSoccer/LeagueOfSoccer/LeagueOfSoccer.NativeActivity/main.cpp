@@ -148,6 +148,7 @@ static void engine_draw_frame(struct engine* engine) {
 	glColorPointer(4, GL_FLOAT, 0, &ball._mesh.m_Colors[0]);
 	glDrawElements(GL_TRIANGLES, ball._mesh.m_Indices.size(), GL_UNSIGNED_SHORT, &ball._mesh.m_Indices[0]);
 
+
 	eglSwapBuffers(engine->display, engine->surface);
 }
 

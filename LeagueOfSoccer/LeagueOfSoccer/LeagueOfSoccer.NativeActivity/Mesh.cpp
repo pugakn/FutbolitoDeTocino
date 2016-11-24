@@ -36,15 +36,16 @@ void Mesh::BuildIndexBuffer()
 	//producir la secuencia de indices para graficar la superficie
 }
 
-void Mesh::Build(int sx, int sy, void(*func(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray)))
+void Mesh::Build(int sx, int sy, void(*func)(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray, int sx, int sy))
 {
-	m_Vertices.clear();
+	//m_Vertices.clear();
 	m_sx = sx;
 	m_sy = sy;
-	m_Vertices.resize(sx*sy);
-	m_Colors.clear();
-	m_Colors.resize(sx*sy);
-	func(m_Vertices,m_Colors);
+	//m_Vertices.resize(sx*sy);
+	//m_Colors.clear();
+	//m_Colors.resize(sx*sy);
+
+	func(m_Vertices,m_Colors,m_sx,m_sy);
 
 }
 

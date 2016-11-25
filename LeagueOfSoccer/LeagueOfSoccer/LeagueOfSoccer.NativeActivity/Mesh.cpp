@@ -49,6 +49,12 @@ void Mesh::Build(int sx, int sy, void(*func)(vector<VECTOR4D>& vertexArray, vect
 
 }
 
+void Mesh::SetVertexArray(const std::vector<VECTOR4D>& vec)
+{
+	m_Vertices.clear();
+	m_Vertices = vec;
+}
+
 
 Mesh::Mesh()
 {

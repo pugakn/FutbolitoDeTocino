@@ -23,6 +23,18 @@ void buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int s
 	}
 }
 
+void Ball::Draw(const MATRIX4D& W)
+{
+	vector<VECTOR4D> transformed(_mesh.m_Vertices);
+	for (int i = 0; i < (int)transformed.size(); ++i)
+		transformed[i] = const_cast<MATRIX4D&>(W) * transformed[i];
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(4, GL_FLOAT, 0, &transformed[0]);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, &_mesh.m_Colors[0]);
+	glDrawElements(GL_TRIANGLES, _mesh.m_Indices.size(), GL_UNSIGNED_SHORT, &_mesh.m_Indices[0]);
+}
+
 void Ball::Initialize()
 {
 	_sx = 40;

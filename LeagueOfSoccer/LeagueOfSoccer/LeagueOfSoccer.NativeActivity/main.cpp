@@ -125,32 +125,21 @@ static void engine_draw_frame(struct engine* engine) {
 		// No display.
 		return;
 	}
-
-
 	/**/
+	MATRIX4D World = Identity();
 	MATRIX4D SAspect = Scaling((float)engine->height / engine->width, 1, 1);
+	World = World * SAspect;
 	Ball ball;
 	ball.Initialize();
-	vector<VECTOR4D> m_Transformed;
-	m_Transformed.resize(ball._mesh.m_Vertices.size());
-	for (int i = 0; i < (int)ball._mesh.m_Vertices.size(); i++) {
-		m_Transformed[i] = SAspect * ball._mesh.m_Vertices[i];
-	}
-	/**/
-	// Just fill the screen with a color.
-	glClearColor(((float)engine->state.x) / engine->width, engine->state.angle,
-		((float)engine->state.y) / engine->height, 1);
+	/*****************************Limpiar Pantalla******************************/
+	/*glClearColor(((float)engine->state.x) / engine->width, engine->state.angle,
+		((float)engine->state.y) / engine->height, 1);*/
+	glClearColor(0.4f,0.5f,1,1);
 	glClear(GL_COLOR_BUFFER_BIT);
+	/****************************Dibujar Elementos******************************/
+	ball.Draw(World);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(4, GL_FLOAT, 0, &m_Transformed[0]);
-	//glShadeModel();
-	glEnableClientState(GL_COLOR_ARRAY);
-	glColorPointer(4, GL_FLOAT, 0, &ball._mesh.m_Colors[0]);
-
-	glDrawElements(GL_TRIANGLES, ball._mesh.m_Indices.size(), GL_UNSIGNED_SHORT, &ball._mesh.m_Indices[0]);
-
-
+	/***************************************************************************/
 	eglSwapBuffers(engine->display, engine->surface);
 }
 

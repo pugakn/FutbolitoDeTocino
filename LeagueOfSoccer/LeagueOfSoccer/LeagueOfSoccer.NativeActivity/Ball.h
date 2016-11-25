@@ -17,6 +17,7 @@ public:
 	std::vector<Wall>* _walls;
 public:
 	void Update(); //Para cada pard llamar a función isColiding();
+	void Draw(const MATRIX4D& world);
 	void Initialize();
 	Ball();
 	~Ball();

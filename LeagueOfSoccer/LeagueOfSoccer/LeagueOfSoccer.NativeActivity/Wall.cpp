@@ -10,11 +10,10 @@
 
 void Wall::Draw(const MATRIX4D& W)
 {
-	MATRIX4D local = Identity();
-	
-	local *= _scale;
+	MATRIX4D local = W;
 	local *= _position;
-	local *= const_cast<MATRIX4D&>(W);
+	local *= _scale;
+	//local *= const_cast<MATRIX4D&>(W);
 	vector<VECTOR4D> transformed(_vertexArray);
 	for (int i = 0; i < (int)transformed.size(); ++i)
 		transformed[i] = local * transformed[i];

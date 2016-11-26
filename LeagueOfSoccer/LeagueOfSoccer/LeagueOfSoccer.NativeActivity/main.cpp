@@ -133,14 +133,13 @@ static void engine_draw_frame(struct engine* engine) {
 	MATRIX4D scale = Scaling(0.2f, 0.2f, 0.2f);
 	MATRIX4D rotationY = RotationY(r += 0.01f);
 	MATRIX4D rotationX = RotationX(r);
-	//World = World * SAspect;
 	World = World * SAspect;
 	World = World * scale;
 	World = World * rotationY;
-	Wall wall;
+	Wall walls[2];
 	Ball ball;
 	ball.Initialize();
-	
+	walls[1].SetPosition(VECTOR4D(-1, -1, 0, 1));
 	/*****************************Limpiar Pantalla******************************/
 	/*glClearColor(((float)engine->state.x) / engine->width, engine->state.angle,
 		((float)engine->state.y) / engine->height, 1);*/
@@ -148,8 +147,9 @@ static void engine_draw_frame(struct engine* engine) {
 	glClear(GL_COLOR_BUFFER_BIT);
 	/****************************Dibujar Elementos******************************/
 
-	wall.Draw(World);
-	ball.Draw(World);
+	for(int i = 0; i < 2; ++i)
+		walls[i].Draw(World);
+	//ball.Draw(World);
 
 	/***************************************************************************/
 	eglSwapBuffers(engine->display, engine->surface);
@@ -220,6 +220,7 @@ static void engine_handle_cmd(struct android_app* app, int32_t cmd) {
 			ASensorEventQueue_setEventRate(engine->sensorEventQueue,
 				engine->accelerometerSensor, (1000L / 60) * 1000);
 		}
+		engine->animating = 1;
 		break;
 	case APP_CMD_LOST_FOCUS:
 		// When our app loses focus, we stop monitoring the accelerometer.

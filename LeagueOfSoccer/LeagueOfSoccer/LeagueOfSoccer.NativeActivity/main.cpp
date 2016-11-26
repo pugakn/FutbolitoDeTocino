@@ -152,7 +152,7 @@ static void engine_draw_frame(struct engine* engine) {
 
 	for(int i = 0; i < 2; ++i)
 		walls[i].Draw(World);
-	//ball.Draw(World);
+	ball.Draw(World);
 
 	/***************************************************************************/
 	eglSwapBuffers(engine->display, engine->surface);

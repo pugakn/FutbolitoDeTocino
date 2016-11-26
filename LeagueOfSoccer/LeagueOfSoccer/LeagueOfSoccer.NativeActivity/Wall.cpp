@@ -11,11 +11,10 @@
 void Wall::Draw(const MATRIX4D& W)
 {
 	MATRIX4D local = Identity();
-	MATRIX4D translation = Translation(_position.x, _position.y, _position.z);
-	MATRIX4D scale = Scaling(1, 1, 1);
-	local = local * scale;
-	local = local * translation;
-	local = local * const_cast<MATRIX4D&>(W);
+	
+	local *= _scale;
+	local *= _position;
+	local *= const_cast<MATRIX4D&>(W);
 	vector<VECTOR4D> transformed(_vertexArray);
 	for (int i = 0; i < (int)transformed.size(); ++i)
 		transformed[i] = local * transformed[i];
@@ -32,12 +31,18 @@ void Wall::Draw(const MATRIX4D& W)
 
 void Wall::SetPosition(VECTOR4D pos)
 {
-	_position = pos;
+	_position = Translation(pos.x,pos.y,pos.z);
+}
+
+void Wall::SetScale(VECTOR4D scale)
+{
+	_scale = Scaling(scale.x, scale.y, scale.z);
 }
 
 Wall::Wall()
 {
-	_position = VECTOR4D(0, 0, 0, 1);
+	_position = Translation(0, 0, 0);
+	_scale = Scaling(1, 1, 1);
 
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));

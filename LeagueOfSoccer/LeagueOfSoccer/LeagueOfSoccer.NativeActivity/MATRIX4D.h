@@ -25,6 +25,7 @@ public:
 		float a20, float a21, float a22, float a23,
 		float a30, float a31, float a32, float a33);
 	MATRIX4D(const MATRIX4D& M);
+	MATRIX4D& operator*=(MATRIX4D& B);
 	MATRIX4D(VECTOR4D &row0,
 		VECTOR4D &row1,
 		VECTOR4D &row2,

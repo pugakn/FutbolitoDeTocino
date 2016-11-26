@@ -129,20 +129,23 @@ static void engine_draw_frame(struct engine* engine) {
 	/**/
 	static float r = 0.f;
 	MATRIX4D World = Identity();
+	VECTOR4D Position = VECTOR4D(0, 1, 0, 1);
+	VECTOR4D Target = VECTOR4D(0, 0, 0, 1);
+	VECTOR4D Up = VECTOR4D(0, 0, 1, 0);
+	MATRIX4D View = LookAtLH(Position, Target, Up);
 	MATRIX4D SAspect = Scaling((float)engine->height / engine->width, 1, 1);
-	MATRIX4D scale = Scaling(0.2f, 0.2f, 0.2f);
+	MATRIX4D scale = Scaling(0.02f, 0.02f, 0.02f);
 	MATRIX4D rotationY = RotationY(r += 0.01f);
-	MATRIX4D rotationX = RotationX(r);
-	World = World * SAspect;
-	World = World * scale;
-	World = World * rotationY;
+	World *= View;
+	World *= SAspect;
+	World *=scale;
+	World *= rotationY;
 	Wall walls[2];
 	Ball ball;
 	ball.Initialize();
-	walls[1].SetPosition(VECTOR4D(-1, -1, 0, 1));
+	walls[0].SetPosition(VECTOR4D(-0.5f, 0, 0, 1));
+	walls[1].SetPosition(VECTOR4D(-0.5f, -0.5f, 0, 1));
 	/*****************************Limpiar Pantalla******************************/
-	/*glClearColor(((float)engine->state.x) / engine->width, engine->state.angle,
-		((float)engine->state.y) / engine->height, 1);*/
 	glClearColor(0.4f,0.5f,1,1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	/****************************Dibujar Elementos******************************/

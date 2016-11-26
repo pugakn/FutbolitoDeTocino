@@ -12,7 +12,7 @@ void Wall::Draw(const MATRIX4D& W)
 {
 	MATRIX4D local = Identity();
 	MATRIX4D translation = Translation(_position.x, _position.y, _position.z);
-	MATRIX4D scale = Scaling(0.2f, 0.2f, 0.2f);
+	MATRIX4D scale = Scaling(1, 1, 1);
 	local = local * scale;
 	local = local * translation;
 	local = local * const_cast<MATRIX4D&>(W);

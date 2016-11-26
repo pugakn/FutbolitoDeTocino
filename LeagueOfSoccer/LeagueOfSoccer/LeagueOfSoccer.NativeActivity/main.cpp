@@ -137,8 +137,8 @@ static void engine_draw_frame(struct engine* engine) {
 	World *= View;
 	World *= SAspect;
 	World *=scale;
-	World *= rotationY;
-	World *= rotationX;
+	//World *= rotationY;
+	//World *= rotationX;
 
 	Stage stage;
 	stage.Setup();

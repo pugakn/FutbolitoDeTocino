@@ -81,8 +81,8 @@ Wall::Wall()
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
 	
 	for (int i = 0; i < (int)_vertexArray.size(); ++i)
-		_colors.push_back(VECTOR4D((sinf(i) + 1) / 2, (cosf(i) + 1)/2, (sinf(i)*cosf(i) +  1) / 2, 1));
-
+		_colors.push_back(VECTOR4D(1,0,0, 1));
+		//_colors.push_back(VECTOR4D(0.45f,0.45f,0.45f,1));
 }
 
 

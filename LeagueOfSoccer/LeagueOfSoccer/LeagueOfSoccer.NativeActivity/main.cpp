@@ -130,38 +130,17 @@ static void engine_draw_frame(struct engine* engine) {
 	static float r = 0.f;
 	MATRIX4D World = Identity();
 	MATRIX4D SAspect = Scaling((float)engine->height / engine->width, 1, 1);
-	MATRIX4D scale = Scaling(0.5f, 0.5f, 0.5f);
-	MATRIX4D rotation = RotationZ(r += 0.01f);
+	MATRIX4D scale = Scaling(0.2f, 0.2f, 0.2f);
+	MATRIX4D rotationY = RotationY(r += 0.01f);
+	MATRIX4D rotationX = RotationX(r);
 	//World = World * SAspect;
-	World = World * rotation;
+	World = World * SAspect;
+	World = World * scale;
+	World = World * rotationY;
 	Wall wall;
-	vector<VECTOR4D> wallVertex;
-
-	float x = -0.5f;
-	float y = -0.5f;
-	float z = -0.5f;
-	/*for (int i = 0; i < 2; ++i)
-	{
-		VECTOR4D n = VECTOR4D(x, y, z, 1);
-		wallVertex.push_back(scale * n);
-		n.x += 1.f;
-		wallVertex.push_back(scale * n);
-		n.y += 1.f;
-		wallVertex.push_back(scale * n);
-		n.x -= 1.f;
-		wallVertex.push_back(scale * n);
-		z += 1.f;
-	}*/
-
-	wallVertex.push_back(VECTOR4D(-0.5f, 0.5f, 0, 1));
-	wallVertex.push_back(VECTOR4D(0.5f, 0.5f, 0, 1));
-	wallVertex.push_back(VECTOR4D(-0.5f, -0.5f, 0, 1));
-	wallVertex.push_back(VECTOR4D(0.5f, -0.5f, 0, 1));
-	
 	Ball ball;
 	ball.Initialize();
-
-	wall.BuildWall(wallVertex);
+	
 	/*****************************Limpiar Pantalla******************************/
 	/*glClearColor(((float)engine->state.x) / engine->width, engine->state.angle,
 		((float)engine->state.y) / engine->height, 1);*/
@@ -170,7 +149,7 @@ static void engine_draw_frame(struct engine* engine) {
 	/****************************Dibujar Elementos******************************/
 
 	wall.Draw(World);
-	//ball.Draw(World);
+	ball.Draw(World);
 
 	/***************************************************************************/
 	eglSwapBuffers(engine->display, engine->surface);

@@ -117,10 +117,7 @@ static int engine_init_display(struct engine* engine) {
 /**
 * Just the current frame in the display.
 */
-#include <vector>
-#include "Mesh.h"
-#include "Wall.h"
-#include "Ball.h"
+#include "Stage.h"
 static void engine_draw_frame(struct engine* engine) {
 	if (engine->display == NULL) {
 		// No display.
@@ -142,22 +139,15 @@ static void engine_draw_frame(struct engine* engine) {
 	World *=scale;
 	World *= rotationY;
 	World *= rotationX;
-	Wall walls[2];
-	Ball ball;
-	ball.Initialize();
-	walls[0].SetScale(VECTOR4D(2, 1, 1, 0));
-	walls[1].SetScale(VECTOR4D(1, 1, 2,0));
-	walls[0].SetPosition(VECTOR4D(0, 0, 0, 1));
-	walls[1].SetPosition(VECTOR4D(0, 0, 0, 1));
+
+	Stage stage;
+	stage.Setup();
+
 	/*****************************Limpiar Pantalla******************************/
 	glClearColor(0.4f,0.5f,1,1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	/****************************Dibujar Elementos******************************/
-
-	for(int i = 0; i < 2; ++i)
-		walls[i].Draw(World);
-	ball.Draw(World);
-
+	stage.Draw(World);
 	/***************************************************************************/
 	eglSwapBuffers(engine->display, engine->surface);
 }

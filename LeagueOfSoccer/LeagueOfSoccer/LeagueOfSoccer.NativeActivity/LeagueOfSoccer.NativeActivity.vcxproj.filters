@@ -10,6 +10,9 @@
       <Filter>Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="MATRIX4D.h" />
+    <ClInclude Include="VECTOR4D.h" />
+    <ClInclude Include="Stage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="android_native_app_glue.c" />
@@ -21,6 +24,9 @@
       <Filter>Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="MATRIX4D.cpp" />
+    <ClCompile Include="VECTOR4D.cpp" />
+    <ClCompile Include="Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mesh">

@@ -117,17 +117,38 @@ static int engine_init_display(struct engine* engine) {
 /**
 * Just the current frame in the display.
 */
+#include "Stage.h"
 static void engine_draw_frame(struct engine* engine) {
 	if (engine->display == NULL) {
 		// No display.
 		return;
 	}
+	/**/
+	static float r = 0.f;
+	MATRIX4D World = Identity();
+	VECTOR4D Position = VECTOR4D(0, 1, 0, 1);
+	VECTOR4D Target = VECTOR4D(0, 0, 0, 1);
+	VECTOR4D Up = VECTOR4D(0, 0, 1, 0);
+	MATRIX4D View = LookAtLH(Position, Target, Up);
+	MATRIX4D SAspect = Scaling((float)engine->height / engine->width, 1, 1);
+	MATRIX4D scale = Scaling(0.1f, 0.1f, 0.1f);
+	MATRIX4D rotationY = RotationY(r += 0.01f);
+	MATRIX4D rotationX = RotationX(r);
+	World *= View;
+	World *= SAspect;
+	World *=scale;
+	//World *= rotationY;
+	//World *= rotationX;
 
-	// Just fill the screen with a color.
-	glClearColor(((float)engine->state.x) / engine->width, engine->state.angle,
-		((float)engine->state.y) / engine->height, 1);
+	Stage stage;
+	stage.Setup();
+
+	/*****************************Limpiar Pantalla******************************/
+	glClearColor(0.4f,0.5f,1,1);
 	glClear(GL_COLOR_BUFFER_BIT);
-
+	/****************************Dibujar Elementos******************************/
+	stage.Draw(World);
+	/***************************************************************************/
 	eglSwapBuffers(engine->display, engine->surface);
 }
 
@@ -196,6 +217,7 @@ static void engine_handle_cmd(struct android_app* app, int32_t cmd) {
 			ASensorEventQueue_setEventRate(engine->sensorEventQueue,
 				engine->accelerometerSensor, (1000L / 60) * 1000);
 		}
+		engine->animating = 1;
 		break;
 	case APP_CMD_LOST_FOCUS:
 		// When our app loses focus, we stop monitoring the accelerometer.

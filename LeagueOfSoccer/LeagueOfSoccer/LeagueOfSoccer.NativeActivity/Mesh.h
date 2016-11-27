@@ -5,7 +5,7 @@
 using namespace std;
 class Mesh
 {
-private:
+public:
 	friend class Ball;
 	friend class Wall;
 	vector<unsigned short> m_Indices;
@@ -16,8 +16,8 @@ public:
 	vector<VECTOR4D> m_Colors;
 	//Genera la secuencia de indices de la mesh de sx y sy vertices
 	void BuildIndexBuffer();
-	void Build(int sx, int sy, void(*func(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray)));
-
+	void Build(int sx, int sy, void(*func)(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int sx,int sy));
+	void SetVertexArray(const std::vector<VECTOR4D>& vec);
 	Mesh();
 	~Mesh();
 };

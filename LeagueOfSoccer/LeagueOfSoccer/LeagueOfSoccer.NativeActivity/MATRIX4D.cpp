@@ -8,6 +8,11 @@ MATRIX4D::MATRIX4D(const MATRIX4D& A)
 {
 	*this = A;
 }
+MATRIX4D& MATRIX4D::operator*=(MATRIX4D & B)
+{
+	*this = *this * B;
+	return *this;
+}
 MATRIX4D::MATRIX4D(
 	float a00, float a01, float a02, float a03,
 	float a10, float a11, float a12, float a13,

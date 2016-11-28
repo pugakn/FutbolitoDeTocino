@@ -6,28 +6,39 @@
 
 void buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int sx, int sy) {
 	//Construir pelota
-	float PI = 3.14;
-	float radio = 1;
-	float increRad = PI / sx;
-	for (float teta = 0; teta <= PI; teta += increRad) {
-		for (float phi = 0; phi <= (2 * PI); phi += increRad) {
-			VECTOR4D temp;
-			temp.x = (radio)*((float)sinf(teta))*((float)cosf(phi));
-			temp.y = (radio)*((float)sinf(teta))*((float)sinf(phi));
-			temp.z = (radio)*((float)cosf(teta));
-			temp.w = 1;
-			VECTOR4D color(0,0,0, 1);
+	float const R = 1.f / (float)(sx - 1);
+	float const S = 1.f / (float)(sy - 1);
+
+	for (int r = 0; r < sx; ++r) {
+		for (int s = 0; s < sy; ++s) {
+			float const z = cos(-M_PI_2 + M_PI * r * R *2);
+			float const x = cos(2 * M_PI * s * S) * sin(-M_PI_2 + M_PI * r * R * 2);
+			float const y = sin(2 * M_PI * s * S) * sin(-M_PI_2 + M_PI * r * R * 2);
+			/*float const y = sin(-M_PI_2 + M_PI * r * R);
+			float const x = cos(2 * M_PI * s * S) * sin(M_PI * r * R);
+			float const z = sin(2 * M_PI * s * S) * sin(M_PI * r * R);*/
+			VECTOR4D color(0, 0, 0, 1);
 			colorArray.push_back(color);
-			vertexArray.push_back(temp);
+			vertexArray.push_back(VECTOR4D(x,y,z,1));
 		}
 	}
+}
+
+void Ball::Move(VECTOR4D& acceleration)
+{
+	_acceleration = acceleration;
+	_velocity = _velocity + _acceleration * 1 / 60.f;
+	_position = _velocity * 1 / 60 + 0.5*_acceleration * ((1 / 60.f)*(1 / 60.f));
+	traslationMTRX = Translation(-_acceleration.x,-_acceleration.y, 0);
 }
 
 void Ball::Draw(const MATRIX4D& W)
 {
 	vector<VECTOR4D> transformed(_mesh.m_Vertices);
-	for (int i = 0; i < (int)transformed.size(); ++i)
+	for (int i = 0; i < (int)transformed.size(); ++i) {
 		transformed[i] = const_cast<MATRIX4D&>(W) * transformed[i];
+		transformed[i] = traslationMTRX * transformed[i];
+	}
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(4, GL_FLOAT, 0, &transformed[0]);
 	glEnableClientState(GL_COLOR_ARRAY);
@@ -37,11 +48,12 @@ void Ball::Draw(const MATRIX4D& W)
 
 void Ball::Initialize()
 {
+	traslationMTRX = Translation(.2, .2, .2);
 	_sx = 40;
 	_sy = 40;
 	_position = VECTOR4D(0,0,0,1);
 	_acceleration = VECTOR4D(0, 0, 0, 0);
-	_velocity = VECTOR4D(0, 0, 0, 0);
+	_velocity = VECTOR4D(0.2, 0.2, 0.2, 0);
 	_color = VECTOR4D(255,255,255,1);
 	_mesh.Build(_sx, _sy, buildBall);
 	_mesh.BuildIndexBuffer();

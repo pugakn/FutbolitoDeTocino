@@ -4,6 +4,7 @@
 #include "Wall.h"
 class Stage
 {
+public:
 	Ball _ball;
 	std::vector<Wall> _walls;
 public:
@@ -11,4 +12,5 @@ public:
 	~Stage();
 	void Setup();
 	void Draw(const MATRIX4D& W);
+	void Update();
 };

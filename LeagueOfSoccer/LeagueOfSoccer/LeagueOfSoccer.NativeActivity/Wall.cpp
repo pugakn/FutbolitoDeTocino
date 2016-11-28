@@ -8,6 +8,22 @@
 //
 //}
 
+bool HitTestTTriangle(TRIANGLE triangle, VECTOR4D point)
+{
+	VECTOR4D u = triangle.v1 - triangle.v0;
+	VECTOR4D p = point - triangle.v0;
+	VECTOR4D c1 = Cross3(u, p);
+
+	u = triangle.v2 - triangle.v1;
+	p = point - triangle.v1;
+	VECTOR4D c2 = Cross3(u, p);
+
+	u = triangle.v0 - triangle.v2;
+	p = point - triangle.v2;
+	VECTOR4D c3 = Cross3(u, p);
+	return (((c1.z < 0) && (c2.z < 0) && (c3.z < 0)) || ((c1.z > 0) && (c2.z > 0) && (c3.z > 0)));
+}
+
 void Wall::Draw(const MATRIX4D& W)
 {
 	MATRIX4D local = W;
@@ -36,6 +52,18 @@ void Wall::SetPosition(VECTOR4D pos)
 void Wall::SetScale(VECTOR4D scale)
 {
 	_scale = Scaling(scale.x, scale.y, scale.z);
+}
+
+bool Wall::IsColiding(VECTOR4D posicion)
+{
+	for (int i = 0; i < _planes.size(); ++i) {
+		if (Dot(_planes[1], posicion) <= 0) { //Esta en o por debajo del plano
+			if (HitTestTTriangle(_triangles[1], posicion)) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 Wall::Wall()
@@ -83,6 +111,29 @@ Wall::Wall()
 	for (int i = 0; i < (int)_vertexArray.size(); ++i)
 		_colors.push_back(VECTOR4D(1,0,0, 1));
 		//_colors.push_back(VECTOR4D(0.45f,0.45f,0.45f,1));
+
+	/***************  Crear planos *****************/
+	VECTOR4D plane;
+	VECTOR4D R, S;
+	VECTOR4D RXS;
+	R = _scale * _vertexArray[1] - _scale *_vertexArray[0];
+	S = _scale *_vertexArray[2] - _scale *_vertexArray[0];
+
+	for (int i = 0; i < 12 * 3; i += 3)
+	{
+		R = _scale *_vertexArray[i + 1] - _scale *_vertexArray[i];
+		S = _scale *_vertexArray[i + 2] - _scale *_vertexArray[i];
+		RXS = Cross3(R, S);
+		plane = VECTOR4D(RXS.x, RXS.y, RXS.z, -Dot(RXS, _scale *_vertexArray[i]));
+		_planes.push_back(plane);
+
+		TRIANGLE triangle;
+		triangle.v0 = _scale *_vertexArray[i];
+		triangle.v1 = _scale *_vertexArray[i + 1];
+		triangle.v2 = _scale *_vertexArray[i + 2];
+		_triangles.push_back(triangle);
+	}
+	/***********************************************/
 }
 
 

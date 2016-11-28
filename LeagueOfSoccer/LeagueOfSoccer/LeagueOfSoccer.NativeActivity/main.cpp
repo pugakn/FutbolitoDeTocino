@@ -21,6 +21,7 @@
 /**
 * Our saved state data.
 */
+#include "Stage.h"
 struct saved_state {
 	float angle;
 	int32_t x;
@@ -43,6 +44,8 @@ struct engine {
 	EGLContext context;
 	int32_t width;
 	int32_t height;
+	VECTOR4D Aceleration;
+	Stage stage;
 	struct saved_state state;
 };
 
@@ -111,13 +114,15 @@ static int engine_init_display(struct engine* engine) {
 	glShadeModel(GL_SMOOTH);
 	glDisable(GL_DEPTH_TEST);
 
+	/********** Inicializaciones**********/
+	engine->stage.Setup();
+
 	return 0;
 }
 
 /**
 * Just the current frame in the display.
 */
-#include "Stage.h"
 static void engine_draw_frame(struct engine* engine) {
 	if (engine->display == NULL) {
 		// No display.
@@ -140,15 +145,17 @@ static void engine_draw_frame(struct engine* engine) {
 	//World *= rotationY;
 	//World *= rotationX;
 
-	Stage stage;
-	stage.Setup();
 
+	VECTOR4D N = Normalize(engine->Aceleration);
+	engine->stage.Update();
+	engine->stage._ball.Move(N);
 	/*****************************Limpiar Pantalla******************************/
 	glClearColor(0.4f,0.5f,1,1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	/****************************Dibujar Elementos******************************/
-	stage.Draw(World);
+	engine->stage.Draw(World);
 	/***************************************************************************/
+
 	eglSwapBuffers(engine->display, engine->surface);
 }
 
@@ -289,6 +296,8 @@ void android_main(struct android_app* state) {
 						LOGI("accelerometer: x=%f y=%f z=%f",
 							event.acceleration.x, event.acceleration.y,
 							event.acceleration.z);
+						VECTOR4D A = VECTOR4D(event.acceleration.x, event.acceleration.y, event.acceleration.z, 0);//!!!!!!!!!!!!!!!!!!!ACELERACION
+						engine.Aceleration = A;
 					}
 				}
 			}

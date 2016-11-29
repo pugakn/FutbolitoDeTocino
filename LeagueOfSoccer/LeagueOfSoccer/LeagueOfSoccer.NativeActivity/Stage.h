@@ -5,7 +5,7 @@
 class Stage
 {
 public:
-	Ball _ball;
+	Ball *_ball;
 	std::vector<Wall> _walls;
 public:
 	Stage();

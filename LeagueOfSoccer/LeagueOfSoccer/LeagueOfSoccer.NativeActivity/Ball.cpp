@@ -27,9 +27,8 @@ void buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int s
 void Ball::Move(VECTOR4D& acceleration)
 {
 	_acceleration = acceleration;
-	_velocity = _velocity + _acceleration * 1 / 60.f;
-	_position = _velocity * 1 / 60 + 0.5*_acceleration * ((1 / 60.f)*(1 / 60.f));
-	traslationMTRX = Translation(-_acceleration.x,-_acceleration.y, 0);
+	_velocity = _velocity + (acceleration * 1/120 );
+	traslationMTRX = Translation(-_velocity.x, -_velocity.y,0);
 }
 
 void Ball::Draw(const MATRIX4D& W)
@@ -53,7 +52,8 @@ void Ball::Initialize()
 	_sy = 40;
 	_position = VECTOR4D(0,0,0,1);
 	_acceleration = VECTOR4D(0, 0, 0, 0);
-	_velocity = VECTOR4D(0.2, 0.2, 0.2, 0);
+	_velocity.x = 0;
+	_velocity = VECTOR4D(0, 0, 0, 0);
 	_color = VECTOR4D(255,255,255,1);
 	_mesh.Build(_sx, _sy, buildBall);
 	_mesh.BuildIndexBuffer();
@@ -61,6 +61,7 @@ void Ball::Initialize()
 
 Ball::Ball()
 {
+	_velocity = VECTOR4D(0, 0, 0, 0);
 }
 
 

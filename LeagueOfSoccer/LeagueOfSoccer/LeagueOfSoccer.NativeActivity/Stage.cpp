@@ -12,8 +12,9 @@ Stage::~Stage()
 void Stage::Setup()
 {
 	//FACK PLANTEAR METODO PARA QUE SE VEA IGUAL EN TODOS LOS CELULARES
-	_ball.Initialize();
-	_ball._position = VECTOR4D(10,10,10, 1);
+	_ball = new Ball;
+	_ball->Initialize();
+	_ball->_position = VECTOR4D(10,10,10, 1);
 	_walls.resize(8);
 	/*********************BORDES*******************/
 	_walls[0].SetScale(VECTOR4D(0.2f, 1, 10, 0));
@@ -41,13 +42,13 @@ void Stage::Draw(const MATRIX4D& W)
 {
 	for (int i = 0; i < (int)_walls.size(); ++i)
 		_walls[i].Draw(W);
-	_ball.Draw(W);
+	_ball->Draw(W);
 }
 
 void Stage::Update()
 {
 	for (int i = 0; i < (int)_walls.size(); ++i)
-		if (_walls[i].IsColiding(_ball._acceleration)) {
-			_walls.clear();
+		if (_walls[i].IsColiding(_ball->_acceleration)) {
+			//_walls.clear();
 		}
 }

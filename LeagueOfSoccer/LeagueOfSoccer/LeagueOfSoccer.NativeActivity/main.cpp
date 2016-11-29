@@ -45,6 +45,7 @@ struct engine {
 	int32_t width;
 	int32_t height;
 	VECTOR4D Aceleration;
+	VECTOR4D Velocity;
 	Stage stage;
 	struct saved_state state;
 };
@@ -114,9 +115,6 @@ static int engine_init_display(struct engine* engine) {
 	glShadeModel(GL_SMOOTH);
 	glDisable(GL_DEPTH_TEST);
 
-	/********** Inicializaciones**********/
-	engine->stage.Setup();
-
 	return 0;
 }
 
@@ -145,17 +143,14 @@ static void engine_draw_frame(struct engine* engine) {
 	//World *= rotationY;
 	//World *= rotationX;
 
-
-	VECTOR4D N = Normalize(engine->Aceleration);
-	engine->stage.Update();
-	engine->stage._ball.Move(N);
+	//engine->stage.Update();
+	engine->stage._ball->Move(engine->Aceleration);
 	/*****************************Limpiar Pantalla******************************/
 	glClearColor(0.4f,0.5f,1,1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	/****************************Dibujar Elementos******************************/
 	engine->stage.Draw(World);
 	/***************************************************************************/
-
 	eglSwapBuffers(engine->display, engine->surface);
 }
 
@@ -254,6 +249,7 @@ void android_main(struct android_app* state) {
 	state->onInputEvent = engine_handle_input;
 	engine.app = state;
 
+
 	// Prepare to monitor accelerometer
 	engine.sensorManager = ASensorManager_getInstance();
 	engine.accelerometerSensor = ASensorManager_getDefaultSensor(engine.sensorManager,
@@ -269,6 +265,10 @@ void android_main(struct android_app* state) {
 	engine.animating = 1;
 
 	// loop waiting for stuff to do.
+
+	/********** Inicializaciones**********/
+	engine.stage.Setup();
+	engine.Velocity = VECTOR4D(0,0,0,0);
 
 	while (1) {
 		// Read all pending events.

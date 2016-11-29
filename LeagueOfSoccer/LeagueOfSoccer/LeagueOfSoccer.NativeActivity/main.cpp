@@ -136,7 +136,7 @@ static void engine_draw_frame(struct engine* engine) {
 	MATRIX4D rotationX = RotationX(r);
 	World *= View;
 	World *= SAspect;
-	World *=scale;
+	World *= scale;
 	//World *= rotationY;
 	//World *= rotationX;
 

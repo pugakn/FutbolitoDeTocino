@@ -54,15 +54,28 @@ void Wall::SetScale(VECTOR4D scale)
 	_scale = Scaling(scale.x, scale.y, scale.z);
 }
 
-bool Wall::IsColiding(VECTOR4D posicion)
+bool Wall::IsColiding(vector<VECTOR4D> posicion, const MATRIX4D& W)
 {
-	for (int i = 0; i < _planes.size(); ++i) {
-		if (Dot(_planes[1], posicion) <= 0) { //Esta en o por debajo del plano
-			if (HitTestTTriangle(_triangles[1], posicion)) {
-				return true;
-			}
-		}
+	MATRIX4D local = W;
+	//MATRIX4D scale = Scaling(0.1f, 0.1f, 0.1f);
+	//local *= scale;
+	local *= _position;
+	local *= _scale;
+	vector<VECTOR4D> _TVertexArray;
+	VECTOR4D temp;
+	temp = VECTOR4D(1.0f, 1.0f, 1.0f, 1);
+	temp = local * temp;
+	_TVertexArray.push_back( temp );
+	temp = VECTOR4D(-1.0f, 1.0f, -1.0f, 1);
+	temp = local * temp;
+	_TVertexArray.push_back(  temp);
+
+	for (int i = 0; i < posicion.size(); i++) {
+		if (posicion[i].x > _TVertexArray[1].x && posicion[i].x < _TVertexArray[0].x &&
+			posicion[i].y > _TVertexArray[1].z && posicion[i].y < _TVertexArray[0].z)
+			return true;
 	}
+
 	return false;
 }
 
@@ -74,36 +87,48 @@ Wall::Wall()
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1)); 
+
 	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1)); 
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
+
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
+
 	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
+
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
+
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
+
 	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
+
 	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1));
+	
+
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
+	//Cara Top 27 - 32
 	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
+
 	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
+	//*********
 	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
 	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));

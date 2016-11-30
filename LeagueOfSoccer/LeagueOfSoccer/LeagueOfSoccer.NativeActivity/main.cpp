@@ -129,6 +129,7 @@ static void engine_draw_frame(struct engine* engine) {
 	/**/
 	static float r = 0.f;
 	MATRIX4D World = Identity();
+	MATRIX4D WT = Identity();
 	VECTOR4D Position = VECTOR4D(0, 1, 0, 1);
 	VECTOR4D Target = VECTOR4D(0, 0, 0, 1);
 	VECTOR4D Up = VECTOR4D(0, 0, 1, 0);
@@ -140,10 +141,11 @@ static void engine_draw_frame(struct engine* engine) {
 	World *= View;
 	World *= SAspect;
 	World *=scale;
+	WT *= SAspect;
+	WT *= scale;
 	//World *= rotationY;
 	//World *= rotationX;
 
-	//engine->stage.Update();
 	engine->stage._ball->Move(engine->Aceleration);
 	/*****************************Limpiar Pantalla******************************/
 	glClearColor(0.4f,0.5f,1,1);
@@ -151,6 +153,7 @@ static void engine_draw_frame(struct engine* engine) {
 	/****************************Dibujar Elementos******************************/
 	engine->stage.Draw(World);
 	/***************************************************************************/
+	engine->stage.Update(WT);
 	eglSwapBuffers(engine->display, engine->surface);
 }
 

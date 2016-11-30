@@ -8,7 +8,7 @@ public:
 	Mesh _mesh;
 	int _sx;
 	int _sy;
-	VECTOR4D _position;
+	vector<VECTOR4D> _positions;
 	VECTOR4D _color;
 	VECTOR4D _velocity;
 	VECTOR4D _acceleration;

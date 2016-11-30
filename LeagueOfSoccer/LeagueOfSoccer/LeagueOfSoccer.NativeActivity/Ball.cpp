@@ -37,6 +37,7 @@ void Ball::Draw(const MATRIX4D& W)
 	for (int i = 0; i < (int)transformed.size(); ++i) {
 		transformed[i] = const_cast<MATRIX4D&>(W) * transformed[i];
 		transformed[i] = traslationMTRX * transformed[i];
+		_positions[i] = transformed[i];
 	}
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(4, GL_FLOAT, 0, &transformed[0]);
@@ -50,13 +51,13 @@ void Ball::Initialize()
 	traslationMTRX = Translation(.2, .2, .2);
 	_sx = 40;
 	_sy = 40;
-	_position = VECTOR4D(0,0,0,1);
 	_acceleration = VECTOR4D(0, 0, 0, 0);
 	_velocity.x = 0;
 	_velocity = VECTOR4D(0, 0, 0, 0);
 	_color = VECTOR4D(255,255,255,1);
 	_mesh.Build(_sx, _sy, buildBall);
 	_mesh.BuildIndexBuffer();
+	_positions = (_mesh.m_Vertices);
 }
 
 Ball::Ball()

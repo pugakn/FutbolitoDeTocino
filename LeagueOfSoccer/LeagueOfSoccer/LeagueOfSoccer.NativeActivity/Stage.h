@@ -12,5 +12,5 @@ public:
 	~Stage();
 	void Setup();
 	void Draw(const MATRIX4D& W);
-	void Update();
+	void Update(const MATRIX4D& W);
 };

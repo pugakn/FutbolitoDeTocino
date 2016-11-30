@@ -31,15 +31,18 @@ void Ball::Update(const MATRIX4D W)
 			VECTOR4D V;
 			VECTOR4D N;
 			N = VECTOR4D(1, 0,0, 0);
-			_velocity = (_velocity - 2 * N*Dot(N, _velocity)/1);
-			_velocity = _velocity + (_acceleration * 1 / 60);
-			_position = _position + _velocity / 60.f + acceleration * ((1 / 60)*(1 / 60)) / 2;
+			_velocity = ((_velocity - 2 * N*Dot(N, _velocity)/1))/1.2f;
+			//_velocity = _velocity + (_acceleration * 1 / 60);
+			//_velocity = _velocity/2 ;
+			//_position = _position + _velocity / 60.f + _acceleration * ((1 / 60)*(1 / 60)) / 2;
+			float k = 1.2;
+			_velocity = (_acceleration / k) + (_velocity - (_acceleration / k)*exp(-k / 60));
+			_position = _position + (_acceleration / k) / 60.f + ((k * _velocity - (_acceleration)) / (k*k))*(1 - exp(-k / 60.f));
 			traslationMTRX = Translation(-_position.x, -_position.y, 0);
 			_coliding = true;
 			return;
 		}
 		else {
-			//_position = _position - acceleration;
 			_coliding = false;
 		}
 
@@ -49,9 +52,15 @@ void Ball::Move(VECTOR4D& acceleration)
 {
 	if (!_coliding)
 		_acceleration =   acceleration;
-	_velocity = _velocity + (_acceleration * 1/60 );
-	_position =  _position +_velocity/60.f + acceleration * ((1 / 60)*(1 / 60)) / 2;
+	//_velocity = _velocity + (_acceleration * 1/60 );
+	//_position =  _position +_velocity/60.f + acceleration * ((1 / 60)*(1 / 60)) / 2;
+	//Movimiento Resistido
+	float k = 1.2;
+	_velocity = (_acceleration / k) + (_velocity - (_acceleration / k)*exp(-k / 60));
+	_position = _position + (_acceleration / k) / 60.f + ((k * _velocity - (_acceleration)) / (k*k))*(1 - exp(-k / 60.f));
 	traslationMTRX = Translation( -_position.x , -_position.y ,0);
+
+
 
 }
 

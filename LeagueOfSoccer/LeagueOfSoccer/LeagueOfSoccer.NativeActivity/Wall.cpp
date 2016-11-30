@@ -8,7 +8,7 @@
 //
 //}
 
-bool HitTestTTriangle(TRIANGLE triangle, VECTOR4D point)
+/*bool HitTestTTriangle(TRIANGLE triangle, VECTOR4D point)
 {
 	VECTOR4D u = triangle.v1 - triangle.v0;
 	VECTOR4D p = point - triangle.v0;
@@ -22,7 +22,7 @@ bool HitTestTTriangle(TRIANGLE triangle, VECTOR4D point)
 	p = point - triangle.v2;
 	VECTOR4D c3 = Cross3(u, p);
 	return (((c1.z < 0) && (c2.z < 0) && (c3.z < 0)) || ((c1.z > 0) && (c2.z > 0) && (c3.z > 0)));
-}
+}*/
 
 void Wall::Draw(const MATRIX4D& W)
 {
@@ -57,8 +57,6 @@ void Wall::SetScale(VECTOR4D scale)
 bool Wall::IsColiding(vector<VECTOR4D> posicion, const MATRIX4D& W)
 {
 	MATRIX4D local = W;
-	//MATRIX4D scale = Scaling(0.1f, 0.1f, 0.1f);
-	//local *= scale;
 	local *= _position;
 	local *= _scale;
 	vector<VECTOR4D> _TVertexArray;
@@ -138,7 +136,7 @@ Wall::Wall()
 		//_colors.push_back(VECTOR4D(0.45f,0.45f,0.45f,1));
 
 	/***************  Crear planos *****************/
-	VECTOR4D plane;
+	/*VECTOR4D plane;
 	VECTOR4D R, S;
 	VECTOR4D RXS;
 	R = _scale * _vertexArray[1] - _scale *_vertexArray[0];
@@ -157,7 +155,7 @@ Wall::Wall()
 		triangle.v1 = _scale *_vertexArray[i + 1];
 		triangle.v2 = _scale *_vertexArray[i + 2];
 		_triangles.push_back(triangle);
-	}
+	}*/
 	/***********************************************/
 }
 

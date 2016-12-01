@@ -85,15 +85,16 @@ bool Wall::IsColiding(VECTOR4D S, VECTOR4D V,vector<VECTOR4D> posicion, const MA
 	float t = 1 / 60;;
 	if (V.x != 0) {
 		if (V.x > 0) {
-			t = (Tx0.x - S.x) / V.x;
+			//t = (Tx0.x - S.x) / V.x;
 			N = x0;
 		}
 		else {
-			t = (Tx1.x - S.x) / V.x;
+			//t = (Tx1.x - S.x) / V.x;
 			N = x1;
 		}
 		if ((Ty0.y <= (S + t*V).y <= Ty1.y) && (Tz0.z <= (S + t*V).z <= Tz1.z)) {
-			if (t < 1 / 600.f && t> 1 / 600.f);
+			//if (t < (1 / 60.f) && t> (-1 / 60.f))
+			if(Dot(N,S + t*V) < 0)
 				return true;
 		}
 	}
@@ -109,7 +110,7 @@ bool Wall::IsColiding(VECTOR4D S, VECTOR4D V,vector<VECTOR4D> posicion, const MA
 		}
 		if ((Tx0.x <= (S + t*V).x <= Tx1.x) && (Ty0.y <= (S + t*V).z <= Ty1.y)) {
 			if (t < 1 / 600.f && t> 1 / 600.f);
-				return true;
+				//return true;
 		}
 	}
 
@@ -124,7 +125,7 @@ bool Wall::IsColiding(VECTOR4D S, VECTOR4D V,vector<VECTOR4D> posicion, const MA
 		}
 		if ((Tz0.z <= (S + t*V).y <= Tz1.z) && (Tx0.x <= (S + t*V).x <= Tx1.x)) {
 			if (t < 1 / 600.f && t> 1 / 600.f);
-				return true;
+				//return true;
 		}
 	}
 

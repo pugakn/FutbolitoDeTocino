@@ -32,7 +32,7 @@ void Ball::Update(const MATRIX4D W)
 			VECTOR4D V;
 			//VECTOR4D N;
 			//N = VECTOR4D(1, 0,0, 0);
-			_velocity = ((_velocity - 2 * N*Dot(N, _velocity) )) / 1.2f;
+			//_velocity = ((_velocity - 2 * N*Dot(N, _velocity) )) / 1.2f;//
 			//_velocity = (N * 2 * N*Dot(N, _velocity)-_velocity ) / 1.2f;
 			//_velocity = _velocity + (_acceleration * 1 / 60);
 			//_velocity = _velocity/2 ;
@@ -40,7 +40,8 @@ void Ball::Update(const MATRIX4D W)
 
 
 			float k = 2.f;
-			_velocity = (_acceleration / k) + (_velocity - (_acceleration / k)*exp(-k / 60));
+			_velocity = -1 * _velocity;
+			//_velocity = (_acceleration / k) + (_velocity - (_acceleration / k)*exp(-k / 60));
 			_position = _position + (_acceleration / k) / 60.f + ((k * _velocity - (_acceleration)) / (k*k))*(1 - exp(-k / 60.f));
 			traslationMTRX = Translation(-_position.x, -_position.y, 0);
 

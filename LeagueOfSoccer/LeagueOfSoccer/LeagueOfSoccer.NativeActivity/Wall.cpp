@@ -54,7 +54,7 @@ void Wall::SetScale(VECTOR4D scale)
 	_scale = Scaling(scale.x, scale.y, scale.z);
 }
 
-bool Wall::IsColiding(vector<VECTOR4D> posicion, const MATRIX4D& W)
+bool Wall::IsColiding(VECTOR4D S, VECTOR4D V,vector<VECTOR4D> posicion, const MATRIX4D& W, VECTOR4D& N)
 {
 	MATRIX4D local = W;
 	local *= _position;
@@ -68,11 +68,90 @@ bool Wall::IsColiding(vector<VECTOR4D> posicion, const MATRIX4D& W)
 	temp = local * temp;
 	_TVertexArray.push_back(  temp);
 
-	for (int i = 0; i < posicion.size(); i++) {
+
+	/***********************************/
+	VECTOR4D x0 (-1,0,0,1);
+	VECTOR4D Tx0 = local * x0;
+	VECTOR4D x1(1, 0, 0, 1);
+	VECTOR4D Tx1 = local * x1;
+	VECTOR4D y0(0, -1, 0, 1);
+	VECTOR4D Ty0 = local * y0;
+	VECTOR4D y1(0, 1, 0, 1);
+	VECTOR4D Ty1 = local * y1;
+	VECTOR4D z0(0, 0, -1, 1);
+	VECTOR4D Tz0 = local * z0;
+	VECTOR4D z1(0, 0, 1, 1);
+	VECTOR4D Tz1 = local * z1;
+	float t = 1 / 60;;
+	if (V.x != 0) {
+		if (V.x > 0) {
+			t = (Tx0.x - S.x) / V.x;
+			N = x0;
+		}
+		else {
+			t = (Tx1.x - S.x) / V.x;
+			N = x1;
+		}
+		if ((Ty0.y <= (S + t*V).y <= Ty1.y) && (Tz0.z <= (S + t*V).z <= Tz1.z)) {
+			if (t < 1 / 600.f && t> 1 / 600.f);
+				return true;
+		}
+	}
+
+	if (V.y != 0) {
+		if (V.y > 0) {
+			t = (Tz0.z - S.y) / V.y;
+			N = y0;
+		}
+		else {
+			t = (Tz1.z - S.y) / V.y;
+			N = y1;
+		}
+		if ((Tx0.x <= (S + t*V).x <= Tx1.x) && (Ty0.y <= (S + t*V).z <= Ty1.y)) {
+			if (t < 1 / 600.f && t> 1 / 600.f);
+				return true;
+		}
+	}
+
+	if (V.z != 0) {
+		if (V.z > 0) {
+			t = (Ty0.y - S.z) / V.z;
+			N = z0;
+		}
+		else {
+			t = (Ty1.y - S.z) / V.z;
+			N = z1;
+		}
+		if ((Tz0.z <= (S + t*V).y <= Tz1.z) && (Tx0.x <= (S + t*V).x <= Tx1.x)) {
+			if (t < 1 / 600.f && t> 1 / 600.f);
+				return true;
+		}
+	}
+
+	
+
+	/*if (V.x == 0) {
+		no x = 0 || x = r.x;
+	}
+	if (V.x > 0) {
+		no x = r.x;
+	}
+	if (V.z < 0) {
+		no x = 0;
+	}*/
+
+	//P(t) = S+ tV
+
+	//t = (r.x - s.x)/v.x Con plano x = rx
+	//0<= pty <=ry
+	//0<= ptz <= r<  true;
+	/***********************************/
+
+	/*for (int i = 0; i < posicion.size(); i++) {
 		if (posicion[i].x > _TVertexArray[1].x && posicion[i].x < _TVertexArray[0].x &&
 			posicion[i].y > _TVertexArray[1].z && posicion[i].y < _TVertexArray[0].z)
 			return true;
-	}
+	}*/
 
 	return false;
 }

@@ -17,7 +17,7 @@ public:
 	void Draw(const MATRIX4D& W);
 	void SetPosition(VECTOR4D pos);
 	void SetScale(VECTOR4D scale);
-	bool IsColiding(vector<VECTOR4D> posi, const MATRIX4D& W);
+	bool IsColiding(VECTOR4D S, VECTOR4D V,vector<VECTOR4D> posi, const MATRIX4D& W, VECTOR4D& N);
 	Wall();
 	~Wall();
 };

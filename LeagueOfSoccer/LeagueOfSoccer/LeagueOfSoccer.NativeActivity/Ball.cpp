@@ -26,11 +26,12 @@ void buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int s
 
 void Ball::Update(const MATRIX4D W)
 {
+	VECTOR4D N;
 	for (int i = 0; i < (int)_walls.size(); ++i)
-		if (_walls[i].IsColiding(_positions, W)) {
+		if (_walls[i].IsColiding(_position,_velocity,_positions, W, N)) {
 			VECTOR4D V;
-			VECTOR4D N;
-			N = VECTOR4D(1, 0,0, 0);
+			//VECTOR4D N;
+			//N = VECTOR4D(1, 0,0, 0);
 			_velocity = ((_velocity - 2 * N*Dot(N, _velocity) )) / 1.2f;
 			//_velocity = (N * 2 * N*Dot(N, _velocity)-_velocity ) / 1.2f;
 			//_velocity = _velocity + (_acceleration * 1 / 60);

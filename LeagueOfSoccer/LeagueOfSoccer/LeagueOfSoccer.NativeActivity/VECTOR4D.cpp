@@ -70,12 +70,12 @@ VECTOR4D Normalize(const VECTOR4D& A)
 bool RayCastOnPlane(VECTOR4D& RayOrigin, VECTOR4D& RayDir,
 	VECTOR4D& Plane, VECTOR4D& Intersection)
 {
-	float d =Dot(Plane, RayDir);
+	float d = Dot(Plane, RayDir);
 	if (fabsf(d) < 0.001f) return false;
 	float n = -Dot(Plane, RayOrigin);
 	float u = n / d;
 	if (u < 0.0f) return false;
-	Intersection = RayOrigin + RayDir*u;
+	Intersection = RayOrigin + RayDir * u;
 	return true;
 }
 bool PtInTriangle(VECTOR4D& V0, VECTOR4D& V1, VECTOR4D& V2, VECTOR4D& P,

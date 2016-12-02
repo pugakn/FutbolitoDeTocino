@@ -8,7 +8,7 @@ MATRIX4D::MATRIX4D(const MATRIX4D& A)
 {
 	*this = A;
 }
-MATRIX4D& MATRIX4D::operator*=(MATRIX4D & B)
+MATRIX4D& MATRIX4D::operator*=(MATRIX4D  B)
 {
 	*this = *this * B;
 	return *this;
@@ -83,6 +83,9 @@ MATRIX4D Translation(float dx, float dy, float dz)
 	T.m03 = dx;
 	T.m13 = dy;
 	T.m23 = dz;
+	/*T.m30 = dx;
+	T.m31 = dy;
+	T.m32 = dz;*/
 	return T;
 }
 MATRIX4D RotationX(float theta)

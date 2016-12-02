@@ -2,7 +2,11 @@
 #include "Mesh.h"
 #include <math.h>
 
+void Mesh::BuildDualTrianglebuffer() {
+	//m_Indices[0] = 
 
+
+}
 void Mesh::BuildIndexBuffer()
 {
 	m_Indices.clear();

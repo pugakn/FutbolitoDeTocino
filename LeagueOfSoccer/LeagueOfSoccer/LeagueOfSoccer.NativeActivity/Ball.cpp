@@ -27,9 +27,10 @@ void buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int s
 
 void Ball::Move(VECTOR4D& acceleration)
 {
-	_acceleration = acceleration;
-	_velocity = _velocity + (acceleration * 1/120 );
-	traslationMTRX = Translation(-_velocity.x, -_velocity.y,0);
+	_acceleration = -1 *acceleration;
+	_velocity = _velocity + (_acceleration * 1/120 );
+	_velocity.z = 0;
+	traslationMTRX = Translation(_velocity.x, _velocity.y,0);
 }
 
 
@@ -38,9 +39,9 @@ void Ball::Draw(int32_t w, int32_t h)
 	MATRIX4D SAspect = Scaling(h / (float)w, 1, 1);
 	vector<VECTOR4D> transformed(_mesh.m_Vertices);
 	for (int i = 0; i < (int)transformed.size(); ++i) {
-		transformed[i] = SAspect * transformed[i];
+		//transformed[i] = SAspect * transformed[i];
 		transformed[i] = traslationMTRX * transformed[i];
-		_positions[i] = transformed[i];
+		//_positions[i] = transformed[i];
 	}
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(4, GL_FLOAT, 0, &transformed[0]);

@@ -8,34 +8,35 @@
 //
 //}
 
-bool HitTestTTriangle(TRIANGLE triangle, VECTOR4D point)
-{
-	VECTOR4D u = triangle.v1 - triangle.v0;
-	VECTOR4D p = point - triangle.v0;
-	VECTOR4D c1 = Cross3(u, p);
-
-	u = triangle.v2 - triangle.v1;
-	p = point - triangle.v1;
-	VECTOR4D c2 = Cross3(u, p);
-
-	u = triangle.v0 - triangle.v2;
-	p = point - triangle.v2;
-	VECTOR4D c3 = Cross3(u, p);
-	return (((c1.z < 0) && (c2.z < 0) && (c3.z < 0)) || ((c1.z > 0) && (c2.z > 0) && (c3.z > 0)));
-}
-
 void Wall::Draw()
 {
-	//local *= const_cast<MATRIX4D&>(W);
-	vector<VECTOR4D> transformed(_vertexArray);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(4, GL_FLOAT, 0, &transformed[0]);
-	
-	glEnableClientState(GL_COLOR_ARRAY);
-	glColorPointer(4, GL_FLOAT, 0, &_colors[0]);
-	
-	glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 12*3 indices starting at 0 -> 12 triangles -> 6 squares
+	for (int i = 0; i < 6; i++) {
+		_caras[i].Draw();
+	}
+
+	//MATRIX4D local = Identity();
+	//for (int i = 0; i < _meshas[0].m_Vertices.size(); i++) {
+	//	_meshas[5].m_Vertices[i] = scale * _meshas[5].m_Vertices[i];
+	//	_meshas[4].m_Vertices[i] = scale * _meshas[4].m_Vertices[i];
+	//	_meshas[3].m_Vertices[i] = scale * _meshas[3].m_Vertices[i];
+	//	_meshas[2].m_Vertices[i] = scale * _meshas[2].m_Vertices[i];
+	//	_meshas[1].m_Vertices[i] = scale * _meshas[1].m_Vertices[i];
+	//	_meshas[0].m_Vertices[i] = scale * _meshas[0].m_Vertices[i];
+	//}
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//for (int i = 0; i < 6; ++i) {
+	//	glEnableClientState(GL_COLOR_ARRAY);
+	//	glColorPointer(4, GL_FLOAT, 0, &_meshas[i].m_Colors[0]);
+	//	glVertexPointer(4, GL_FLOAT, 0, &_meshas[i].m_Vertices[0]);
+	//	glDrawElements(GL_TRIANGLES, _meshas[i].m_Indices.size(), GL_UNSIGNED_SHORT, &_meshas[i].m_Indices[0]);
+	//}
+
+	//
+	////glEnableClientState(GL_COLOR_ARRAY);
+	////glColorPointer(4, GL_FLOAT, 0, &_colors[0]);
+	////for (int i = 0; i < 6; ++i)
+		
 
 }
 
@@ -48,89 +49,6 @@ void Wall::SetScale(VECTOR4D scale)
 {
 	_scale = Scaling(scale.x, scale.y, scale.z);
 }
-
-Wall::Wall()
-{
-	_position = Translation(0, 0, 0);
-	_scale = Scaling(1, 1, 1);
-
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1)); 
-
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1)); 
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
-
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
-
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
-
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
-
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1));
-	
-
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
-	//Cara Top 27 - 32
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
-
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
-	//*********
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
-	
-	for (int i = 0; i < (int)_vertexArray.size(); ++i)
-		_colors.push_back(VECTOR4D(1,0,0, 1));
-		//_colors.push_back(VECTOR4D(0.45f,0.45f,0.45f,1));
-
-	/***************  Crear planos *****************/
-	VECTOR4D plane;
-	VECTOR4D R, S;
-	VECTOR4D RXS;
-	R = _scale * _vertexArray[1] - _scale *_vertexArray[0];
-	S = _scale *_vertexArray[2] - _scale *_vertexArray[0];
-
-	for (int i = 0; i < 12 * 3; i += 3)
-	{
-		R = _scale *_vertexArray[i + 1] - _scale *_vertexArray[i];
-		S = _scale *_vertexArray[i + 2] - _scale *_vertexArray[i];
-		RXS = Cross3(R, S);
-		plane = VECTOR4D(RXS.x, RXS.y, RXS.z, -Dot(RXS, _scale *_vertexArray[i]));
-		_planes.push_back(plane);
-
-		TRIANGLE triangle;
-		triangle.v0 = _scale *_vertexArray[i];
-		triangle.v1 = _scale *_vertexArray[i + 1];
-		triangle.v2 = _scale *_vertexArray[i + 2];
-		_triangles.push_back(triangle);
-	}
-	/***********************************************/
-}
-
 
 Wall::~Wall()
 {

@@ -35,9 +35,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{e5bf62c5-a8b0-4491-9fd0-8332b013ac64}</ProjectGuid>
+    <ProjectGuid>{9b6ef3af-01c0-4dc8-94de-3ff80a6cd97d}</ProjectGuid>
     <Keyword>Android</Keyword>
-    <RootNamespace>LeagueOfSoccer</RootNamespace>
+    <RootNamespace>Android1</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <ApplicationType>Android</ApplicationType>
@@ -77,7 +77,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <PlatformToolset>Clang_3_8</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -87,7 +87,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared">
+  <ImportGroup Label="Shared" >
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -114,14 +114,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'"/>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'"/>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'"/>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'"/>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"/>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"/>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'"/>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'"/>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -150,7 +150,6 @@
     </ClCompile>
     <Link>
       <LibraryDependencies>%(LibraryDependencies);GLESv1_CM;EGL;</LibraryDependencies>
-      <AdditionalOptions>-lm %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -204,28 +203,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="MATRIX4D.h" />
-    <ClInclude Include="Mesh.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="android_native_app_glue.h" />
-    <ClInclude Include="Porteria.h" />
-    <ClInclude Include="Stage.h" />
-    <ClInclude Include="TriangleMesh.h" />
-    <ClInclude Include="VECTOR4D.h" />
-    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="android_native_app_glue.c" />
-    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MATRIX4D.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Porteria.cpp" />
-    <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="TriangleMesh.cpp" />
-    <ClCompile Include="VECTOR4D.cpp" />
-    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

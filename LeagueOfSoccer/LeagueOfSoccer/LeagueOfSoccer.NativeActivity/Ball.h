@@ -19,7 +19,7 @@ public:
 public:
 	void Update();
 	void Move(VECTOR4D& acceleration);
-	void Draw(const MATRIX4D& world);
+	void Draw(int32_t w, int32_t h);
 	void Initialize();
 	Ball();
 	~Ball();

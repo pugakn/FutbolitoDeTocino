@@ -38,17 +38,15 @@ void Stage::Setup()
 	/**********************************************/
 }
 
-void Stage::Draw(const MATRIX4D& W)
+
+void Stage::Draw(int32_t w, int32_t h)
 {
 	for (int i = 0; i < (int)_walls.size(); ++i)
-		_walls[i].Draw(W);
-	_ball->Draw(W);
+		_walls[i].Draw();
+	_ball->Draw(w, h);
 }
 
-void Stage::Update(const MATRIX4D& W)
+void Stage::Update()
 {
-	for (int i = 0; i < (int)_walls.size(); ++i)
-		if (_walls[i].IsColiding(_ball->_positions,W)) {
-			_walls.clear();
-		}
+	
 }

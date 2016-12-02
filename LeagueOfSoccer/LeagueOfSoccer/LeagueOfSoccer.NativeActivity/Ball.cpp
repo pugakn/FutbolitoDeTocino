@@ -8,12 +8,12 @@ void buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int s
 	//Construir pelota
 	float const R = 1.f / (float)(sx - 1);
 	float const S = 1.f / (float)(sy - 1);
-
+	float radio = .05f;
 	for (int r = 0; r < sx; ++r) {
 		for (int s = 0; s < sy; ++s) {
-			float const z = cos(-M_PI_2 + M_PI * r * R *2);
-			float const x = cos(2 * M_PI * s * S) * sin(-M_PI_2 + M_PI * r * R * 2);
-			float const y = sin(2 * M_PI * s * S) * sin(-M_PI_2 + M_PI * r * R * 2);
+			float const z = radio * cos(-M_PI_2 + M_PI * r * R *2);
+			float const x = radio * cos(2 * M_PI * s * S) * sin(-M_PI_2 + M_PI * r * R * 2);
+			float const y = radio *sin(2 * M_PI * s * S) * sin(-M_PI_2 + M_PI * r * R * 2);
 			/*float const y = sin(-M_PI_2 + M_PI * r * R);
 			float const x = cos(2 * M_PI * s * S) * sin(M_PI * r * R);
 			float const z = sin(2 * M_PI * s * S) * sin(M_PI * r * R);*/
@@ -24,6 +24,7 @@ void buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int s
 	}
 }
 
+
 void Ball::Move(VECTOR4D& acceleration)
 {
 	_acceleration = acceleration;
@@ -31,11 +32,13 @@ void Ball::Move(VECTOR4D& acceleration)
 	traslationMTRX = Translation(-_velocity.x, -_velocity.y,0);
 }
 
-void Ball::Draw(const MATRIX4D& W)
-{
+
+void Ball::Draw(int32_t w, int32_t h)
+{	
+	MATRIX4D SAspect = Scaling(h / (float)w, 1, 1);
 	vector<VECTOR4D> transformed(_mesh.m_Vertices);
 	for (int i = 0; i < (int)transformed.size(); ++i) {
-		transformed[i] = const_cast<MATRIX4D&>(W) * transformed[i];
+		transformed[i] = SAspect * transformed[i];
 		transformed[i] = traslationMTRX * transformed[i];
 		_positions[i] = transformed[i];
 	}

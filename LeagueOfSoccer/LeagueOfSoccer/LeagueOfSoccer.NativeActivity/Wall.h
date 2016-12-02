@@ -20,10 +20,9 @@ private:
 	vector <TRIANGLE> _triangles;
 public:
 	//void BuildWall();
-	void Draw(const MATRIX4D& W);
+	void Draw();
 	void SetPosition(VECTOR4D pos);
 	void SetScale(VECTOR4D scale);
-	bool IsColiding(vector<VECTOR4D> posi, const MATRIX4D& W);
 	Wall();
 	~Wall();
 };

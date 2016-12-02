@@ -24,15 +24,10 @@ bool HitTestTTriangle(TRIANGLE triangle, VECTOR4D point)
 	return (((c1.z < 0) && (c2.z < 0) && (c3.z < 0)) || ((c1.z > 0) && (c2.z > 0) && (c3.z > 0)));
 }
 
-void Wall::Draw(const MATRIX4D& W)
+void Wall::Draw()
 {
-	MATRIX4D local = W;
-	local *= _position;
-	local *= _scale;
 	//local *= const_cast<MATRIX4D&>(W);
 	vector<VECTOR4D> transformed(_vertexArray);
-	for (int i = 0; i < (int)transformed.size(); ++i)
-		transformed[i] = local * transformed[i];
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(4, GL_FLOAT, 0, &transformed[0]);
@@ -52,31 +47,6 @@ void Wall::SetPosition(VECTOR4D pos)
 void Wall::SetScale(VECTOR4D scale)
 {
 	_scale = Scaling(scale.x, scale.y, scale.z);
-}
-
-bool Wall::IsColiding(vector<VECTOR4D> posicion, const MATRIX4D& W)
-{
-	MATRIX4D local = W;
-	//MATRIX4D scale = Scaling(0.1f, 0.1f, 0.1f);
-	//local *= scale;
-	local *= _position;
-	local *= _scale;
-	vector<VECTOR4D> _TVertexArray;
-	VECTOR4D temp;
-	temp = VECTOR4D(1.0f, 1.0f, 1.0f, 1);
-	temp = local * temp;
-	_TVertexArray.push_back( temp );
-	temp = VECTOR4D(-1.0f, 1.0f, -1.0f, 1);
-	temp = local * temp;
-	_TVertexArray.push_back(  temp);
-
-	for (int i = 0; i < posicion.size(); i++) {
-		if (posicion[i].x > _TVertexArray[1].x && posicion[i].x < _TVertexArray[0].x &&
-			posicion[i].y > _TVertexArray[1].z && posicion[i].y < _TVertexArray[0].z)
-			return true;
-	}
-
-	return false;
 }
 
 Wall::Wall()

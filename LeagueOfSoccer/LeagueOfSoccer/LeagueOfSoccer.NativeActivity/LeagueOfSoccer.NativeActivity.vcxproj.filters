@@ -13,6 +13,8 @@
     <ClInclude Include="MATRIX4D.h" />
     <ClInclude Include="VECTOR4D.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="Porteria.h" />
+    <ClInclude Include="TriangleMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="android_native_app_glue.c" />
@@ -27,6 +29,8 @@
     <ClCompile Include="MATRIX4D.cpp" />
     <ClCompile Include="VECTOR4D.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="Porteria.cpp" />
+    <ClCompile Include="TriangleMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mesh">

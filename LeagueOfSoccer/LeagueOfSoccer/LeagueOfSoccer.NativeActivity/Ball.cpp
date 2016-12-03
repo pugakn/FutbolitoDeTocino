@@ -27,19 +27,21 @@ void buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int s
 
 void Ball::Move(VECTOR4D& acceleration)
 {
-	////if (!_coliding)
-	//	_acceleration = -1 * acceleration;
+	acceleration.z = 0;
+	//if (!_coliding)
+		_acceleration = -1 * acceleration;
 
-	//float k = 1.2;
-	//_velocity = (_acceleration / k) + (_velocity - (_acceleration / k)*exp(-k / 60));
-	//_velocity.z = 0;
-	//_position = _position + (_acceleration / k) / 60.f + ((k * _velocity - (_acceleration)) / (k*k))*(1 - exp(-k / 60.f));
+	float k = 5;
+	_velocity = (_acceleration / k) + (_velocity - (_acceleration / k)*exp(-k / 60));
+	_velocity.z = 0;
+	_position = _position + (_acceleration / k) / 60.f + ((k * _velocity - (_acceleration)) / (k*k))*(1 - exp(-k / 60.f));
 	//traslationMTRX = Translation(_position.x * 0.01f, _position.y * 0.01f, 0);
 	//FOR(i, _mesh.m_Vertices.size()) _mesh.m_Vertices[i] = traslationMTRX * _mesh.m_Vertices[i];
-	_velocity = _velocity + acceleration * -0.1f;
-	_velocity.z = 0;
-	FOR(i, _mesh.m_Vertices.size()) _mesh.m_Vertices[i] = _mesh.m_Vertices[i] + _velocity * 0.0007f;
-	_position = _position + _velocity * 0.0007f;
+
+	/*_velocity = _velocity + acceleration * -0.1f;
+	_velocity.z = 0;*/
+	FOR(i, _mesh.m_Vertices.size()) _mesh.m_Vertices[i] = _mesh.m_Vertices[i] + (_acceleration / k) / 60.f + ((k * _velocity - (_acceleration)) / (k*k))*(1 - exp(-k / 60.f));
+	//_position = _position + _velocity * 0.0007f;
 }
 
 

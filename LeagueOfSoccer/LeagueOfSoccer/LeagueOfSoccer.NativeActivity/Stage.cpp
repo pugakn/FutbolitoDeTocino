@@ -22,8 +22,20 @@ void Stage::Setup(int32_t w, int32_t h) // Inicializa el Stage
 	_ball = new Ball;
 	_ball->Initialize(w, h);
 	_walls.push_back(Wall());
-	_walls[0].SetScale(VECTOR4D(0.1,0.1,1,1));
-	_walls[0].SetPosition(VECTOR4D(0.3f,0.3f,0,1));
+	_walls.push_back(Wall());
+	_walls.push_back(Wall());
+	_walls.push_back(Wall());
+
+	_walls[0].SetScale(VECTOR4D(1,0.05f,1,1));
+	_walls[0].SetPosition(VECTOR4D(0.f,0.95f,0,1));
+	_walls[1].SetScale(VECTOR4D(1, 0.05f, 1, 1));
+	_walls[1].SetPosition(VECTOR4D(0.f, -0.95f, 0, 1));
+
+	_walls[2].SetScale(VECTOR4D(0.05f, 1, 1, 1));
+	_walls[2].SetPosition(VECTOR4D(-0.95f, 0, 0, 1));
+	_walls[3].SetScale(VECTOR4D(0.05, 1, 1, 1));
+	_walls[3].SetPosition(VECTOR4D(0.95f, 0, 0, 1));
+	
 }
 
 
@@ -58,55 +70,19 @@ void Stage::Update()
 					if (dist <= radius) 
 					{
 						_ball->_velocity = _ball->_velocity - 2 * normal * Dot(normal, _ball->_velocity);
+						_ball->_velocity = _ball->_velocity * 0.5f;
+						_ball->_velocity.z = 0;
+						VECTOR4D hit, n = normal * -1;
+						RayCastOnPlane(_ball->_position, n, plane, hit);
+						VECTOR4D nDis = hit - _ball->_position + n* radius;
+						float Desplazamiento = Magnity(nDis);
+						FOR(i, _ball->_mesh.m_Vertices.size())
+							_ball->_mesh.m_Vertices[i] = _ball->_mesh.m_Vertices[i] + normal * Desplazamiento;
+						_ball->_position = _ball->_position + normal * Desplazamiento;
 					}
 				}
 			}
 		}
 	}
 
-	//std::map<float, Cara*> colisiones;
-	//_ball->_acceleration; // velocidad
-	//_ball->_velocity; //Posicion
-	//VECTOR4D v = Normalize(_ball->_acceleration);
-	//for (int i = 0; i < _walls.size(); ++i)
-	//{
-	//	for (int j = 0; j < 6; ++j)
-	//	{
-	//		Cara& actual = _walls[i]._caras[j];
-	//		VECTOR4D inter;
-	//		if (RayCastOnPlane(_ball->_velocity, v, actual._plano, inter))
-	//		{
-	//			float w, w2;
-	//			if (PtInTriangle(actual._tr[0].A, actual._tr[0].B, actual._tr[0].C, inter, w, w2))
-	//			{
-	//				VECTOR4D l = inter - _ball->_velocity;
-	//				float d = sqrtf(Dot(l, l));
-	//				colisiones[d] = &actual;
-	//			}
-	//			else if(PtInTriangle(actual._tr[1].A, actual._tr[1].B, actual._tr[1].C, inter, w, w2))
-	//			{
-	//				VECTOR4D l = inter - _ball->_velocity;
-	//				float d = sqrtf(Dot(l, l));
-	//				colisiones[d] = &actual;
-	//			}
-	//		}
-	//	}
-	//}
-
-	//if (colisiones.empty()) return;
-	//std::map<float, Cara*>::iterator it = colisiones.begin();
-	//std::pair<const float, Cara*> *best = &(*it);
-	//while (++it != colisiones.end()) {
-	//	if (it->first < best->first)
-	//		best = &(*it);
-	//}
-
-	//VECTOR4D point = _ball->_mesh.m_Vertices[0];
-	//VECTOR4D dist = point - _ball->_velocity;
-	//float r = Magnity(dist);
-	//if (best->first <= r)
-	//{
-	//	VECTOR4D vel = _ball->_acceleration - 2 * best->second->_normal * Dot(best->second->_normal, _ball->_acceleration);
-	//	_ball->_acceleration = vel;
-	//}
 }

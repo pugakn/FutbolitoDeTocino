@@ -82,7 +82,7 @@ Wall::Wall()
 	_position = Translation(0, 0, 0);
 	_scale = Scaling(1, 1, 1);
 	/*Left*/
-	//0-2
+
 	_left[0] = VECTOR4D(-1.0f, -1.0f, -1.0f, 1);
 	_left[1] = VECTOR4D(-1.0f, -1.0f, 1.0f, 1);
 	_left[2] = VECTOR4D(-1.0f, 1.0f, 1.0f, 1);

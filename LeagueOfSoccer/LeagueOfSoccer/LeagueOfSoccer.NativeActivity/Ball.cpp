@@ -51,14 +51,15 @@ void Ball::Update(const MATRIX4D W)
 void Ball::Move(VECTOR4D& acceleration)
 {
 	if (!_coliding)
-		_acceleration =   acceleration;
+		_acceleration =   -1 * acceleration;
 	//_velocity = _velocity + (_acceleration * 1/60 );
 	//_position =  _position +_velocity/60.f + acceleration * ((1 / 60)*(1 / 60)) / 2;
 	//Movimiento Resistido
 	float k = 1.2;
 	_velocity = (_acceleration / k) + (_velocity - (_acceleration / k)*exp(-k / 60));
+	_velocity.z = 0;
 	_position = _position + (_acceleration / k) / 60.f + ((k * _velocity - (_acceleration)) / (k*k))*(1 - exp(-k / 60.f));
-	traslationMTRX = Translation( -_position.x , -_position.y ,0);
+	traslationMTRX = Translation( _position.x , _position.y ,0);
 
 
 

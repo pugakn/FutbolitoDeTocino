@@ -6,6 +6,12 @@
 class Wall
 {
 private:
+	VECTOR4D _top[6];
+	VECTOR4D _down[6];
+	VECTOR4D _left [6];
+	VECTOR4D _right[6];
+	VECTOR4D _front[6];
+	VECTOR4D _back[6];
 	vector<VECTOR4D> _vertexArray;
 	vector<VECTOR4D> _colors;
 	MATRIX4D _scale;

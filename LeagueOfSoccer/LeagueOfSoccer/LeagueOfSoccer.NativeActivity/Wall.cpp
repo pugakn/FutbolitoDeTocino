@@ -81,55 +81,75 @@ Wall::Wall()
 {
 	_position = Translation(0, 0, 0);
 	_scale = Scaling(1, 1, 1);
+	/*Left*/
+	//0-2
+	_left[0] = VECTOR4D(-1.0f, -1.0f, -1.0f, 1);
+	_left[1] = VECTOR4D(-1.0f, -1.0f, 1.0f, 1);
+	_left[2] = VECTOR4D(-1.0f, 1.0f, 1.0f, 1);
+	_left[3] = VECTOR4D(-1.0f, -1.0f, -1.0f, 1);
+	_left[4] = VECTOR4D(-1.0f, 1.0f, 1.0f, 1);
+	_left[5] = VECTOR4D(-1.0f, 1.0f, -1.0f, 1);
 
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1)); 
+	VECTOR4D Normal = Normalize(Cross3(_left[1] - _left[0], _left[2] - _left[0]));
 
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1)); 
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
+	/*Back*/
 
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
+	_back[0] = VECTOR4D(1.0f, 1.0f, -1.0f, 1);
+	_back[1] = VECTOR4D(-1.0f, -1.0f, -1.0f, 1);
+	_back[2] = VECTOR4D(-1.0f, 1.0f, -1.0f, 1);
 
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
+	_back[3] = VECTOR4D(1.0f, 1.0f, -1.0f, 1);
+	_back[4] = VECTOR4D(1.0f, -1.0f, -1.0f, 1);
+	_back[5] = VECTOR4D(-1.0f, -1.0f, -1.0f, 1);
 
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
+	Normal = Normalize(Cross3(_back[1] - _back[0], _back[2] - _back[0]));
 
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, -1.0f, 1));
+	/*Down*/
 
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, -1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
+	_down[0] = VECTOR4D(1.0f, -1.0f, 1.0f, 1);
+	_down[1] = VECTOR4D(-1.0f, -1.0f, -1.0f, 1);
+	_down[2] = VECTOR4D(1.0f, -1.0f, -1.0f, 1);
 
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1));
+	_down[3] = VECTOR4D(1.0f, -1.0f, 1.0f, 1);
+	_down[4] = VECTOR4D(-1.0f, -1.0f, 1.0f, 1);
+	_down[5] = VECTOR4D(-1.0f, -1.0f, -1.0f, 1);
+
+	Normal = Normalize(Cross3(_down[1] - _down[0], _down[2] - _down[0]));
+	/*Front*/
+
+	_front[0] = VECTOR4D(-1.0f, 1.0f, 1.0f, 1);
+	_front[1] = VECTOR4D(-1.0f, -1.0f, 1.0f, 1);
+	_front[2] = VECTOR4D(1.0f, -1.0f, 1.0f, 1);
+
+	_front[3] = VECTOR4D(1.0f, 1.0f, 1.0f, 1);
+	_front[4] = VECTOR4D(-1.0f, 1.0f, 1.0f, 1);
+	_front[5] = VECTOR4D(1.0f, -1.0f, 1.0f, 1);
+
+
+	Normal = Normalize(Cross3(_front[1] - _front[0], _front[2] - _front[0]));
+	/*Derecha*/
+
+	_right[0] = VECTOR4D(1.0f, 1.0f, 1.0f, 1);
+	_right[1] = VECTOR4D(1.0f, -1.0f, -1.0f, 1);
+	_right[2] = VECTOR4D(1.0f, 1.0f, -1.0f, 1);
+
+	_right[3] = VECTOR4D(1.0f, -1.0f, -1.0f, 1);
+	_right[4] = VECTOR4D(1.0f, 1.0f, 1.0f, 1);
+	_right[5] = VECTOR4D(1.0f, -1.0f, 1.0f, 1);
+
+	Normal = Normalize(Cross3(_right[1] - _right[0], _right[2] - _right[0]));
+
+	/*Top*/
+
+	_top[0] = VECTOR4D(1.0f, 1.0f, 1.0f, 1);
+	_top[1] = VECTOR4D(1.0f, 1.0f, -1.0f, 1);
+	_top[2] = VECTOR4D(-1.0f, 1.0f, -1.0f, 1);
+
+	_top[3] = VECTOR4D(1.0f, 1.0f, 1.0f, 1);
+	_top[4] = VECTOR4D(-1.0f, 1.0f, -1.0f, 1);
+	_top[5] = VECTOR4D(-1.0f, 1.0f, 1.0f, 1);
 	
-
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
-	//Cara Top 27 - 32
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
-
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, -1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
-	//*********
-	_vertexArray.push_back(VECTOR4D(1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(-1.0f, 1.0f, 1.0f, 1));
-	_vertexArray.push_back(VECTOR4D(1.0f, -1.0f, 1.0f, 1));
+	Normal = Normalize(Cross3(_top[1] - _top[0], _top[2] - _top[0]));
 	
 	for (int i = 0; i < (int)_vertexArray.size(); ++i)
 		_colors.push_back(VECTOR4D(1,0,0, 1));

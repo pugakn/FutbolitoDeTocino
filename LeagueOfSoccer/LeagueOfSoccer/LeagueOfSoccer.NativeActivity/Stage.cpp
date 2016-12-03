@@ -15,57 +15,15 @@ void Stage::CreateFaces()
 {
 
 }
-std::vector<Cara> Stage::CreateBox(VECTOR4D up[], VECTOR4D down[]) { 
-	//SI los armadillos comienzan a volar podemos intuir por eliminacion 
-	//geografica que los dinosaurios no tuviron vida social porque eran muy 
-	//gordos y se la pasaban comiendo champis en la choza de don pepe.
-	std::vector<Cara> temp;
-	temp.push_back(Cara(up));
-	temp.push_back(Cara(down));
-	VECTOR4D sideR[4];
-	sideR[0] = down[3];
-	sideR[1] = up[3];
-	sideR[2] = up[2];
-	sideR[3] = down[2];
-	temp.push_back(Cara(sideR));
-	VECTOR4D sideL[4];
-	sideL[0] = down[1];
-	sideL[1] = up[1];
-	sideL[2] = up[0];
-	sideL[3] = down[0];
-	temp.push_back(Cara(sideL));
-	VECTOR4D sideD[4];
-	sideD[0] = down[0];
-	sideD[1] = up[0];
-	sideD[2] = up[3];
-	sideD[3] = down[3];
-	temp.push_back(Cara(sideD));
-	VECTOR4D sideU[4];
-	sideU[0] = down[2];
-	sideU[1] = up[2];
-	sideU[2] = up[1];
-	sideU[3] = down[1];
-	temp.push_back(Cara(sideU));
-	
-	return temp;
-}
+
+
 void Stage::Setup() // Inicializa el Stage
 {
 	//FACK PLANTEAR METODO PARA QUE SE VEA IGUAL EN TODOS LOS CELULARES
 	_ball = new Ball;
 	_ball->Initialize();
 	//_ball->_position = VECTOR4D(10,10,10, 1);
-	VECTOR4D up[4];
-	up[0] = VECTOR4D(-1,1,1,1);
-	up[1] = VECTOR4D(-1,1,-1,1);
-	up[2] = VECTOR4D(1,1,-1,1);
-	up[3] = VECTOR4D(1,1,1,1);
-	VECTOR4D down[4];
-	down[0] = VECTOR4D(-1,-1,1,1);
-	down[1] = VECTOR4D(-1,-1,-1,1);
-	down[2] = VECTOR4D(1,-1,-1,1);
-	down[3] = VECTOR4D(1,-1,1,1);
-	_walls.push_back(Wall(CreateBox(up,down)));
+	_walls.push_back(Wall());
 
 
 

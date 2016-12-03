@@ -1,5 +1,6 @@
 #include "VECTOR4D.h"
 #include <cmath>
+#include "Triangle.h"
 VECTOR4D::VECTOR4D()
 {
 }
@@ -87,6 +88,25 @@ bool PtInTriangle(VECTOR4D& V0, VECTOR4D& V1, VECTOR4D& V2, VECTOR4D& P,
 	float B = Dot(D0, D0);
 	float C = Dot(D1, D0);
 	float D = Dot(P - V0, D1);
+	//float E = C;
+	float F = Dot(D1, D1);
+	float det = B*F - C*C;
+	if (fabsf(det) < 0.001f) return false;
+	det = 1 / det;
+	w1 = (F*A - C*D)*det;
+	w2 = (B*D - C*A)*det;
+	return (w1 + w2 <= 1.0f) && (w1 >= 0.0f) && (w2 >= 0.0f);
+}
+
+bool PtInTriangle(Triangle & T, VECTOR4D & P)
+{
+	float w1, w2;
+	VECTOR4D D0 = T._vertex[1] - T._vertex[0];
+	VECTOR4D D1 = T._vertex[2] - T._vertex[0];
+	float A = Dot(P - T._vertex[0], D0);
+	float B = Dot(D0, D0);
+	float C = Dot(D1, D0);
+	float D = Dot(P - T._vertex[0], D1);
 	//float E = C;
 	float F = Dot(D1, D1);
 	float det = B*F - C*C;

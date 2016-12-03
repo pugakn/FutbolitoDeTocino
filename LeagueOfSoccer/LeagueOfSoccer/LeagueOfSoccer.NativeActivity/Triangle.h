@@ -1,0 +1,16 @@
+#pragma once
+#include "MATRIX4D.h"
+
+class Triangle
+{
+public:
+	Triangle(VECTOR4D A, VECTOR4D B, VECTOR4D C);
+	VECTOR4D GetNormal();
+	VECTOR4D GetPlane();
+	void Move(MATRIX4D& m);
+	void Scale(MATRIX4D& m);
+	void Draw();
+public:
+	VECTOR4D _vertex[3];
+private:
+};

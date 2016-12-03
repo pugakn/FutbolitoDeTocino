@@ -1,4 +1,5 @@
 #pragma once
+class Triangle;
 
 class VECTOR4D
 {
@@ -45,6 +46,8 @@ bool RayCastOnPlane(VECTOR4D& RayOrigin, VECTOR4D& RayDir,
 	VECTOR4D& Plane, VECTOR4D& Intersection);
 bool PtInTriangle(VECTOR4D& V0, VECTOR4D& V1, VECTOR4D& V2, VECTOR4D& P,
 	float& w1, float& w2);
+
+bool PtInTriangle(Triangle& T, VECTOR4D& P);
 
 
 

@@ -109,6 +109,10 @@ static int engine_init_display(struct engine* engine) {
 	engine->height = h;
 	engine->state.angle = 0;
 
+
+	/********** Inicializaciones**********/
+	engine->stage.Setup(engine->width, engine->height);
+
 	// Initialize GL state.
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
 	glEnable(GL_CULL_FACE);
@@ -126,10 +130,6 @@ static void engine_draw_frame(struct engine* engine) {
 		// No display.
 		return;
 	}
-	/**/
-	static float r = 0.f;
-	//World *= rotationY;
-	//World *= rotationX;
 
 	engine->stage._ball->Move(engine->Aceleration);
 	/*****************************Limpiar Pantalla******************************/
@@ -254,9 +254,6 @@ void android_main(struct android_app* state) {
 
 	// loop waiting for stuff to do.
 
-	/********** Inicializaciones**********/
-	engine.stage.Setup();
-	engine.Velocity = VECTOR4D(0,0,0,0);
 
 	while (1) {
 		// Read all pending events.

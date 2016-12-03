@@ -24,10 +24,10 @@ public:
 		_triangles.push_back(Triangle(VECTOR4D(1.0f, -1.0f, 1.0f, 1), VECTOR4D(-1.0f, -1.0f, 1.0f, 1), VECTOR4D(-1.0f, -1.0f, -1.0f, 1)));
 		_triangles.push_back(Triangle(VECTOR4D(-1.0f, 1.0f, 1.0f, 1), VECTOR4D(-1.0f, -1.0f, 1.0f, 1), VECTOR4D(1.0f, -1.0f, 1.0f, 1)));
 		_triangles.push_back(Triangle(VECTOR4D(1.0f, 1.0f, 1.0f, 1), VECTOR4D(-1.0f, 1.0f, 1.0f, 1), VECTOR4D(1.0f, -1.0f, 1.0f, 1)));
-		_triangles.push_back(Triangle());
-		_triangles.push_back(Triangle());
-		_triangles.push_back(Triangle());
-		_triangles.push_back(Triangle());
+		_triangles.push_back(Triangle(VECTOR4D(1.0f, 1.0f, 1.0f, 1), VECTOR4D(1.0f, -1.0f, -1.0f, 1), VECTOR4D(1.0f, 1.0f, -1.0f, 1)));
+		_triangles.push_back(Triangle(VECTOR4D(1.0f, -1.0f, -1.0f, 1), VECTOR4D(1.0f, 1.0f, 1.0f, 1), VECTOR4D(1.0f, -1.0f, 1.0f, 1)));
+		_triangles.push_back(Triangle(VECTOR4D(1.0f, 1.0f, 1.0f, 1), VECTOR4D(1.0f, 1.0f, -1.0f, 1), VECTOR4D(-1.0f, 1.0f, -1.0f, 1)));
+		_triangles.push_back(Triangle(VECTOR4D(1.0f, 1.0f, 1.0f, 1), VECTOR4D(-1.0f, 1.0f, -1.0f, 1), VECTOR4D(-1.0f, 1.0f, 1.0f, 1)));
 	}
 	~Wall();
 };

@@ -1,6 +1,8 @@
 #pragma once
 #include "VECTOR4D.h"
 #include <iostream>
+#define FOR(A, B) for(int A = 0; A < B; ++A)
+
 using namespace std;
 struct MATRIX4D
 {

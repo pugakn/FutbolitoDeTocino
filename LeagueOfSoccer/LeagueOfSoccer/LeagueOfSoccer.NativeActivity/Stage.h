@@ -12,9 +12,8 @@ public:
 public:
 	Stage();
 	~Stage();
-	std::vector<Cara> CreateBox(VECTOR4D up[], VECTOR4D down[]);
 	
-	void Setup();
+	void Setup(int32_t w, int32_t h);
 	void Draw(int32_t w, int32_t h);
 	void Update();
 };

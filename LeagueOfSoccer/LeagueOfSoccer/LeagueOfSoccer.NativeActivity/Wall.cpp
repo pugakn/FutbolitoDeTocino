@@ -4,17 +4,19 @@
 
 void Wall::Draw()
 {
-
+	FOR(x, 12) _triangles[x].Draw();
 }
 
 void Wall::SetPosition(VECTOR4D pos)
 {
-	_position = Translation(pos.x,pos.y,pos.z);
+	MATRIX4D Fak = Translation(pos.x, pos.y, pos.z);
+	FOR(x, 12) _triangles[x].Move(Fak);
 }
 
 void Wall::SetScale(VECTOR4D scale)
 {
-	_scale = Scaling(scale.x, scale.y, scale.z);
+	MATRIX4D Fak = Scaling(scale.x, scale.y, scale.z);
+	FOR(x, 12) _triangles[x].Scale(Fak);
 }
 
 Wall::~Wall()

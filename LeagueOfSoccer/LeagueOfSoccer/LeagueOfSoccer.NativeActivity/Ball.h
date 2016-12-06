@@ -19,6 +19,7 @@ public:
 	void Move(VECTOR4D& acceleration);
 	void Draw(int32_t w, int32_t h);
 	void Initialize(int32_t w, int32_t h);
+	void GetPos();
 	Ball();
 	~Ball();
 };

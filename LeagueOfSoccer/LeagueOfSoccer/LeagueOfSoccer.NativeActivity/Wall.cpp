@@ -19,6 +19,13 @@ void Wall::SetScale(VECTOR4D scale)
 	FOR(x, 12) _triangles[x].Scale(Fak);
 }
 
+bool Wall::OnColliderEnter(VECTOR4D pos)
+{
+	VECTOR4D* esquina1 = (VECTOR4D*)&_triangles.front()._vertex[0].x;
+	VECTOR4D* esquina2 = (VECTOR4D*)&_triangles.back()._vertex[0].x;
+	return pos.x > esquina1->x && pos.x < esquina2->x && pos.y > esquina1->y && pos.y < esquina2->y;
+}
+
 Wall::~Wall()
 {
 }

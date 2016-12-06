@@ -54,33 +54,28 @@ void Stage::Update()
 	VECTOR4D dir = Normalize(_ball->_velocity);
 	FOR(i, _walls.size())
 	{
-		FOR(j, 12)
+		FOR(j, _walls[i]._triangles.size())
 		{
-			VECTOR4D plane = _walls[i]._triangles[j].GetPlane();
-			VECTOR4D normal = _walls[i]._triangles[j].GetNormal();
-			VECTOR4D hitPos;
-			if (RayCastOnPlane(_ball->_position, dir, plane, hitPos)) 
-			{
-				if (PtInTriangle(_walls[i]._triangles[j], hitPos))
-				{
-					VECTOR4D d = hitPos - _ball->_position;
-					float dist = Magnity(d);
-					VECTOR4D rad = _ball->_mesh.m_Vertices[0] - _ball->_position;
-					float radius = Magnity(rad);
-					if (dist <= radius) 
-					{
-						_ball->_velocity = _ball->_velocity - 2 * normal * Dot(normal, _ball->_velocity);
-						_ball->_velocity = _ball->_velocity * 0.5f;
-						_ball->_velocity.z = 0;
-						VECTOR4D hit, n = normal * -1;
-						RayCastOnPlane(_ball->_position, n, plane, hit);
-						VECTOR4D nDis = hit - _ball->_position + n* radius;
-						float Desplazamiento = Magnity(nDis);
-						FOR(i, _ball->_mesh.m_Vertices.size())
-							_ball->_mesh.m_Vertices[i] = _ball->_mesh.m_Vertices[i] + normal * Desplazamiento;
-						_ball->_position = _ball->_position + normal * Desplazamiento;
-					}
-				}
+			VECTOR4D plano = _walls[i]._triangles[j].GetPlane();
+			VECTOR4D planoMod(plano);
+			VECTOR4D rad = _ball->_mesh.m_Vertices[0] - _ball->_position;
+			float radius = Magnity(rad);
+			planoMod.w -= radius;
+			VECTOR4D nuevaPos = _ball->_position + _ball->_velocity;
+			if ((Dot(_ball->_position - (0.005* dir), planoMod) > 0) && (Dot(nuevaPos + (0.005* dir), planoMod) < 0)) {
+				float denom = Dot(planoMod, dir);
+				if (denom == 0) continue;
+				float t = (Dot(planoMod, _ball->_position)) / denom;
+				VECTOR4D pDeTe = _ball->_position + t*dir;
+				VECTOR4D C = pDeTe + radius * _walls[i]._triangles[j].GetNormal();
+				C.z = 0;
+				VECTOR4D dist = pDeTe - _ball->_position + (_walls[i]._triangles[j].GetNormal()* 0.003f);
+				_ball->_position = _ball->_position + dist;
+				FOR(i, _ball->_mesh.m_Vertices.size())
+					_ball->_mesh.m_Vertices[i] = _ball->_mesh.m_Vertices[i] + dist;
+
+				_ball->_velocity = _ball->_velocity - 2* _walls[i]._triangles[j].GetNormal() * Dot(_walls[i]._triangles[j].GetNormal(), _ball->_velocity);
+				_ball->_velocity = _ball->_velocity * 0.55f;
 			}
 		}
 	}

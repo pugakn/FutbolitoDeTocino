@@ -14,6 +14,7 @@ public:
 	void Draw();
 	void SetPosition(VECTOR4D pos);
 	void SetScale(VECTOR4D scale);
+	bool OnColliderEnter(VECTOR4D pos);
 	Wall()
 	{
 		_triangles.push_back(Triangle(VECTOR4D(-1.0f, -1.0f, -1.0f, 1), VECTOR4D(-1.0f, -1.0f, 1.0f, 1), VECTOR4D(-1.0f, 1.0f, 1.0f, 1)));

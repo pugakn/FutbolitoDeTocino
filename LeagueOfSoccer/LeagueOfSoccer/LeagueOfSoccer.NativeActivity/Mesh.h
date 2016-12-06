@@ -13,6 +13,7 @@ public:
 	int m_sy;
 public:
 	vector<VECTOR4D> m_Vertices;
+	vector<VECTOR4D> m_Original;
 	vector<VECTOR4D> m_Colors;
 	//Genera la secuencia de indices de la mesh de sx y sy vertices
 	void BuildIndexBuffer();

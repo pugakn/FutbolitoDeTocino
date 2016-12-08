@@ -50,3 +50,11 @@ void Triangle::SetColor(VECTOR4D color) {
 		Color[c] = color;
 	}
 }
+
+void Triangle::SetRotation(float phi)
+{
+	MATRIX4D r = RotationZ(phi);
+	FOR(i, 3) {
+		_vertex[i] = r * _vertex[i];
+	}
+}

@@ -26,6 +26,17 @@ bool Wall::OnColliderEnter(VECTOR4D pos)
 	return pos.x > esquina1->x && pos.x < esquina2->x && pos.y > esquina1->y && pos.y < esquina2->y;
 }
 
+void Wall::SetRotatation(float phi)
+{
+	MATRIX4D Fak = RotationZ(phi);
+	FOR(x, 12) _triangles[x].SetRotation(phi);
+}
+
+void Wall::SetColor(VECTOR4D color)
+{
+	FOR(x, 12) _triangles[x].SetColor(color);
+}
+
 Wall::~Wall()
 {
 }

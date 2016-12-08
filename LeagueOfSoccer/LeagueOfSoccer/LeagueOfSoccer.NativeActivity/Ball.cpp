@@ -17,7 +17,9 @@ void buildBall(vector<VECTOR4D>& vertexArray, vector<VECTOR4D>& colorArray,int s
 			/*float const y = sin(-M_PI_2 + M_PI * r * R);
 			float const x = cos(2 * M_PI * s * S) * sin(M_PI * r * R);
 			float const z = sin(2 * M_PI * s * S) * sin(M_PI * r * R);*/
-			VECTOR4D color(0, 0, 0, 1);
+			VECTOR4D color;
+			
+			color = VECTOR4D(cosf(x), sinf(y), cosf(y)*sinf(x), 1);
 			colorArray.push_back(color);
 			vertexArray.push_back(VECTOR4D(x,y,z,1));
 		}

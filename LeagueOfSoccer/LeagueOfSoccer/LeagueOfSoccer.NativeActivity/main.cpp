@@ -137,7 +137,7 @@ static void engine_draw_frame(struct engine* engine) {
 	/****************************Dibujar Elementos******************************/
 	engine->stage.Draw(engine->width, engine->height);
 	/***************************************************************************/
-	engine->stage.Update();
+	engine->stage.Update(engine->width, engine->height);
 	eglSwapBuffers(engine->display, engine->surface);
 }
 

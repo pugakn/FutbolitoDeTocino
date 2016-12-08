@@ -22,6 +22,7 @@ void Stage::Setup(int32_t w, int32_t h) // Inicializa el Stage
 {
 	_ball = new Ball;
 	_ball->Initialize(w, h);
+
 	_walls.push_back(Wall());
 	_walls.push_back(Wall());
 	_walls.push_back(Wall());
@@ -145,6 +146,14 @@ void Stage::Setup(int32_t w, int32_t h) // Inicializa el Stage
 	_walls.back().SetScale(VECTOR4D(0.005f, 0.3f, 1, 1));
 	_walls.back().SetPosition(VECTOR4D(-0.55f, -0.5f, 0, 1));
 	
+	// Porterias
+	_porterias.push_back(Wall());
+	_porterias.back().SetScale(VECTOR4D(0.1f, 0.05f, 1, 1));
+	_porterias.back().SetPosition(VECTOR4D(0.0f, -0.9f, 0, 1));
+	_porterias.push_back(Wall());
+	_porterias.back().SetScale(VECTOR4D(0.1f, 0.05f, 1, 1));
+	_porterias.back().SetPosition(VECTOR4D(.0f, .9f, 0, 1));
+	////////////////////////////
 	_fondo.push_back(fondo());
 	_fondo.back().SetScale(VECTOR4D(1.f, 1 / 8.f, 1.f, 1.f));
 	_fondo.back().SetPosition(VECTOR4D(0.f, -7 / 8.f, 0.f, 1.f));
@@ -174,12 +183,11 @@ void Stage::Draw(int32_t w, int32_t h)
 		_fondo[u].Draw();
 	for (int i = 0; i < (int)_walls.size(); ++i)
 		_walls[i].Draw();
-
 	
 	_ball->Draw(w, h);
 }
 
-void Stage::Update()
+void Stage::Update(int32_t w, int32_t h)
 {
 
 	VECTOR4D dir = Normalize(_ball->_velocity);
@@ -211,5 +219,15 @@ void Stage::Update()
 			}
 		}
 	}
+	FOR(i, _porterias.size()) 
+	{
+		if (_porterias[i].OnColliderEnter(_ball->_position))
+		{
+			sleep(1);
+			delete _ball;
+			_ball = new Ball();
+			_ball->Initialize(w, h);
 
+		}
+	}
 }

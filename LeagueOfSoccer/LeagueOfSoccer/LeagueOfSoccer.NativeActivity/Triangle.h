@@ -10,7 +10,9 @@ public:
 	void Move(MATRIX4D& m);
 	void Scale(MATRIX4D& m);
 	void Draw();
+	void SetColor(VECTOR4D Color);
 public:
 	VECTOR4D _vertex[3];
+	VECTOR4D Color[3];
 private:
 };

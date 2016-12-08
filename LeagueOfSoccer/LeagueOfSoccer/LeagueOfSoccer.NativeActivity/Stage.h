@@ -2,6 +2,7 @@
 #include <vector>
 #include "Ball.h"
 #include "Wall.h"
+#include "fondo.h"
 class Stage
 {
 
@@ -9,6 +10,7 @@ class Stage
 public:
 	Ball *_ball;
 	std::vector<Wall> _walls;
+	std::vector<fondo> _fondo;
 public:
 	Stage();
 	~Stage();

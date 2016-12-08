@@ -130,10 +130,9 @@ static void engine_draw_frame(struct engine* engine) {
 		// No display.
 		return;
 	}
-
 	engine->stage._ball->Move(engine->Aceleration);
 	/*****************************Limpiar Pantalla******************************/
-	glClearColor(0.4f,0.5f,1,1);
+	glClearColor(0.0f,0.5f,0.1,1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	/****************************Dibujar Elementos******************************/
 	engine->stage.Draw(engine->width, engine->height);

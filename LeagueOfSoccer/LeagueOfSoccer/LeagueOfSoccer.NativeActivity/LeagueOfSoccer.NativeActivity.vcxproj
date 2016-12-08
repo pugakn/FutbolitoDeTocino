@@ -205,6 +205,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="fondo.h" />
     <ClInclude Include="MATRIX4D.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="pch.h" />
@@ -218,6 +219,7 @@
   <ItemGroup>
     <ClCompile Include="android_native_app_glue.c" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="fondo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MATRIX4D.cpp" />
     <ClCompile Include="Mesh.cpp" />

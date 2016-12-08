@@ -144,20 +144,38 @@ void Stage::Setup(int32_t w, int32_t h) // Inicializa el Stage
 	_walls.push_back(Wall());
 	_walls.back().SetScale(VECTOR4D(0.005f, 0.3f, 1, 1));
 	_walls.back().SetPosition(VECTOR4D(-0.55f, -0.5f, 0, 1));
-
-
-
-
 	
+	_fondo.push_back(fondo());
+	_fondo.back().SetScale(VECTOR4D(1.f, 1 / 8.f, 1.f, 1.f));
+	_fondo.back().SetPosition(VECTOR4D(0.f, -7 / 8.f, 0.f, 1.f));
+	_fondo.back().SetColor(VECTOR4D(0.f, 1.f, .2f, 1));
+
+	_fondo.push_back(fondo());
+	_fondo.back().SetScale(VECTOR4D(1.f, 1 / 8.f, 1.f, 1.f));
+	_fondo.back().SetPosition(VECTOR4D(0.f, -3 / 8.f, 0.f, 1.f));
+	_fondo.back().SetColor(VECTOR4D(0.f, 1.f, .2f, 1));
+
+	_fondo.push_back(fondo());
+	_fondo.back().SetScale(VECTOR4D(1.f, 1 / 8.f, 1.f, 1.f));
+	_fondo.back().SetPosition(VECTOR4D(0.f, 1/8.f, 0.f, 1.f));
+	_fondo.back().SetColor(VECTOR4D(0.f, 1.f, .2f, 1));
+
+	_fondo.push_back(fondo());
+	_fondo.back().SetScale(VECTOR4D(1.f, 1 / 8.f, 1.f, 1.f));
+	_fondo.back().SetPosition(VECTOR4D(0.f, 5 / 8.f, 0.f, 1.f));
+	_fondo.back().SetColor(VECTOR4D(0.f, 1.f, .2f, 1));
+
 }
 
 
 void Stage::Draw(int32_t w, int32_t h)
 {
+	FOR(u, _fondo.size())
+		_fondo[u].Draw();
 	for (int i = 0; i < (int)_walls.size(); ++i)
 		_walls[i].Draw();
 
-
+	
 	_ball->Draw(w, h);
 }
 
